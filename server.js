@@ -13,6 +13,7 @@ const leaderboardRoutes = require('./routes/leaderboard');
 const announcementRoutes = require('./routes/announcements');
 
 const app = express();
+app.set('trust proxy', true)
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
