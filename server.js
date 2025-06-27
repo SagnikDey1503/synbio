@@ -8,7 +8,7 @@ const User = require('./models/User'); // adjust path as needed
 const Query = require('./models/Query'); // adjust path as needed
 const timeGateMiddleware = require('./middleware/time');
 require('dotenv').config();
-const unlockTime = '2025-06-29T23:40:00+05:30';
+const unlockTime = '2025-06-27T23:40:00+05:30';
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
