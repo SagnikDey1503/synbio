@@ -19,7 +19,7 @@ async function addAnnouncement() {
   try {
     // Replace these values manually
     const announcementData = {
-      title: 'Round 1 Released!',
+      title: 'Round 3 Released!',
       content: 'Round 1 is now live. Go to the contest page to begin.',
       type: 'urgent', // 'general', 'correction', or 'urgent'
       isActive: true,
