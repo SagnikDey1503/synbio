@@ -6,9 +6,9 @@ const socketIo = require('socket.io');
 const path = require('path');
 const User = require('./models/User'); // adjust path as needed
 const Query = require('./models/Query'); // adjust path as needed
-
+const timeGateMiddleware = require('./middleware/time');
 require('dotenv').config();
-
+const unlockTime = '2025-06-29T23:40:00+05:30';
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -19,6 +19,9 @@ const io = socketIo(server, {
 });
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -51,7 +54,7 @@ app.get('/', (req, res) => {
 app.get('/signup', (req, res) => {
     res.render('signiup_land',{error:null,success:null})
 });
-app.get('/login', (req, res) => {
+app.get('/login',timeGateMiddleware(unlockTime), (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login_land.html'));
 });
 

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QUIZZICLES Portal Locked</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Use Inter font and FontAwesome for icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #8b5cf6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --info: #3b82f6;
+      --white: #fff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --radius-lg: 0.75rem;
+      --shadow-lg: 0 10px 15px -3px rgba(99, 102, 241, 0.10), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #6366f1 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-900);
+    }
+    .locked-container {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .logo {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem auto;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.12);
+    }
+    .logo i {
+      color: #fff;
+      font-size: 2rem;
+    }
+    .locked-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+    .locked-msg {
+      color: var(--gray-700);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .countdown-block {
+      margin: 1.5rem 0;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .countdown-label {
+      font-size: 0.95rem;
+      color: var(--gray-700);
+      margin-bottom: 0.5rem;
+    }
+    .announcements-section {
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .announcements-title {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .announcement-card {
+      background: var(--gray-100);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1rem 0.75rem 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 4px rgba(99,102,241,0.04);
+    }
+    .announcement-card.urgent { border-left-color: var(--error);}
+    .announcement-card.correction { border-left-color: var(--warning);}
+    .announcement-title {
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 0.25rem;
+      font-size: 1.05rem;
+    }
+    .announcement-content {
+      color: var(--gray-700);
+      margin-bottom: 0.35rem;
+      font-size: 0.98rem;
+    }
+    .announcement-meta {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      margin-bottom: 0;
+    }
+    @media (max-width: 520px) {
+      .locked-container { padding: 1.2rem 0.5rem; }
+      .countdown-block { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="locked-container">
+    <div class="logo">
+      <i class="fas fa-brain"></i>
+    </div>
+    <div class="locked-title">Portal Locked</div>
+    <div class="locked-msg">
+      <%= message %>
+    </div>
+    <div class="countdown-block">
+      <span class="countdown-label"><i class="fas fa-clock"></i> Time left for opening:</span>
+      <span id="countdown">Calculating...</span>
+    </div>
+    <% if (announcements && announcements.length > 0) { %>
+      <div class="announcements-section">
+        <div class="announcements-title"><i class="fas fa-bullhorn"></i> Latest Announcements</div>
+        <% announcements.forEach(a => { %>
+          <div class="announcement-card <%= a.type %>">
+            <div class="announcement-title"><%= a.title %></div>
+            <div class="announcement-content"><%= a.content %></div>
+            <div class="announcement-meta"><%= new Date(a.createdAt).toLocaleString() %></div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+  <script>
+    // Unlock time is passed as ISO string
+    const unlockTime = new Date("<%= unlockTimeISO %>");
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = unlockTime - now;
+      if (diff <= 0) {
+        countdownEl.innerText = "Portal is opening... Please refresh.";
+        return;
+      }
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      countdownEl.innerText = `${hours} hr ${minutes} min ${seconds} sec`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>

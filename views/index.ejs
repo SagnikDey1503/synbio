@@ -6,6 +6,10 @@
     <title>QUIZZICLES - 2nd Edition | Math & Physics Competition</title>
     <meta name="description" content="QUIZZICLES - Annual Mathematics and Physics Competition for Classes 8-12 and UG 1st Year. Join the 2nd Edition!">
     <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
     <!-- Navigation -->
@@ -20,7 +24,7 @@
                 <a href="#questions" class="nav-link">Sample Questions</a>
                 <a href="#edition" class="nav-link">2nd Edition</a>
                 <a href="#team" class="nav-link">Team</a>
-                <a href="#sponsors" class="nav-link">Sponsors</a>
+
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="hamburger" id="hamburger">
@@ -85,8 +89,34 @@
             <h2 class="section-title">About QUIZZICLES</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>QUIZZICLES is an annual mathematics and physics competition designed to challenge and inspire young minds. Our competition targets students from Classes 8-12 and undergraduate 1st year, providing them with a platform to showcase their analytical and problem-solving skills.</p>
-                    <p>We believe in nurturing scientific temperament and mathematical thinking among students through carefully curated questions that test both conceptual understanding and application skills.</p>
+                   
+  <p><strong>QUIZZICLES</strong> is an <strong>annual free online mathematics and physics competition</strong>, open to everyone who loves a good challenge — from curious school students to passionate undergrads and lifelong learners.</p>
+
+  <div class="section">
+    <h2><span class="emoji">🎯</span>What’s it all about?</h2>
+    <p>Inspired by legendary contests like <em>Physics Brawl</em> and <em>OPhO</em>, QUIZZICLES was created in 2024 by a bunch of students who just wanted to solve some awesome problems — but couldn’t find the right competition at that time of the year. So they made their own. Now it’s your turn to join in the fun.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="emoji">🧠</span>Who can participate?</h2>
+    <p>There are two categories:</p>
+    <ul>
+      <strong>Student:</strong> For students from classes 8–12 and 1st year undergrads <br>
+      <strong>Open:</strong> For everyone else. Yes, that includes you.
+    </ul>
+    <p>But don’t worry — everyone gets the same set of questions, so you’re competing on pure brainpower.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="emoji">🚀</span>Why should you care?</h2>
+    <p>Because QUIZZICLES isn’t just a competition — it’s a celebration of ideas, logic, and that “aha!” moment when a tricky question clicks. Whether you’re aiming for the top spot or just in it for the thrill of problem-solving, we promise it’ll be worth your time.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="emoji">✨</span>Our motto?</h2>
+    <blockquote>Fall in love with the questions.</blockquote>
+  </div>
+                    
                     <div class="about-features">
                         <div class="feature">
                             <div class="feature-icon">📊</div>
@@ -94,14 +124,14 @@
                             <p>Algebra, Calculus, Geometry, and more</p>
                         </div>
                         <div class="feature">
-                            <div class="feature-icon">⚛️</div>
+                            <div class="feature-icon">⚛</div>
                             <h3>Physics</h3>
                             <p>Mechanics, Thermodynamics, Optics, and more</p>
                         </div>
                         <div class="feature">
                             <div class="feature-icon">🏆</div>
                             <h3>Recognition</h3>
-                            <p>Certificates, prizes, and scholarships</p>
+                            <p>Certificates</p>
                         </div>
                     </div>
                 </div>
@@ -119,47 +149,95 @@
             </div>
             
             <div class="questions-content" id="physics-questions">
+    <div class="question-card">
+        <div class="question-number">It’s raining conductors!</div>
+        <div class="question-text">
+            We have a large circle of radius <strong>R = 1.1 m</strong>. A point charge A of charge <strong>Q = 32&nbsp;µC</strong> is placed on the circumference of the circle.
+            <br><br>
+            Neutral conducting points B, C, D, ... fall one by one at the center of the circle. As soon as the <em>n<sup>th</sup></em> point arrives, it is made to touch all pre-existing points in alphabetical order — first it touches A, then B, then C, and so on.
+            <br><br>
+            After redistribution of charge, it is placed on the circumference, and the system is externally arranged into a regular <strong>n-sided polygon</strong> inscribed in the circle.
+            <br><br>
+            Then the <em>(n + 1)<sup>th</sup></em> point falls, touches the existing <em>n</em> points in order, and the configuration is rearranged into a regular <strong>(n + 1)-sided polygon</strong>.
+            <br><br>
+            Let <strong>U<sub>n</sub></strong> denote the total electrostatic potential energy of the system when an <em>n</em>-sided polygon is formed.
+            <br><br>
+            <strong>Find U<sub>4</sub> to the nearest integer.</strong>
+            <br><br>
+            <em>Assume:</em> Neglect induction during conduction. Use the constant \( \frac{1}{4\pi\varepsilon_0} = 9 \times 10^9 \, \text{N·m}^2/\text{C}^2 \).
+        </div>
+    </div>
+
+                    
                 <div class="question-card">
-                    <div class="question-number">Q1</div>
-                    <div class="question-text">A body of mass 4 kg is accelerated from rest by a constant force of 9 N. What is its speed when it has travelled a distance of 8 m?</div>
-                    <div class="options">
-                        <div class="option">A) 3.6 m/s</div>
-                        <div class="option">B) 4.5 m/s</div>
-                        <div class="option correct">C) 6.0 m/s</div>
-                        <div class="option">D) 18.0 m/s</div>
-                    </div>
-                </div>
-                <div class="question-card">
-                    <div class="question-number">Q2</div>
-                    <div class="question-text">An object is dropped from a height of 45 m. How long does it take to reach the ground? (g = 10 m/s²)</div>
-                    <div class="options">
-                        <div class="option">A) 2 s</div>
-                        <div class="option correct">B) 3 s</div>
-                        <div class="option">C) 4 s</div>
-                        <div class="option">D) 5 s</div>
-                    </div>
-                </div>
-            </div>
+        <div class="question-number">Sherlock Holmes</div>
+        <div class="question-text">
+            In the Sherlock Holmes story <em>“The Adventure of the Dying Detective”</em>, we come across an ivory box containing a sharp spring compressed by the lid of the box. On opening, the spring — uniformly overloaded with deadly microbes — elongates and pricks the hand of Victor Savage, who dies after 4 days.
+            <br><br>
+            Let the box be cubical with edge length <strong>a = 10 cm</strong>. The natural (unstretched) length of the spring is <strong>ℓ = 10.2 cm</strong>. Consider the sharp end of the spring to be conical, with a <strong>semi-vertical angle α = 15°</strong>.
+            <br><br>
+            Suppose the microbes infect Red Blood Corpuscles (RBCs), and the infected RBCs lose their oxygen-carrying capacity. The number of infected RBCs at time <em>t</em> follows:
+            <br>
+            <strong>N(t) = N<sub>0</sub> e<sup>λt</sup></strong>, 
+            <br>
+            where <strong>λ = 1.2 × 10<sup>−5</sup> s<sup>−1</sup></strong>, and <strong>N<sub>0</sub></strong> is the initial number of microbes that enter the bloodstream.
+            <br><br>
+            A person dies when the number of infected RBCs reaches <strong>60%</strong> of the original RBC count in their body.
+            <br><br>
+            Assume:
+            <ul>
+                <li>Total blood volume of Victor: <strong>V = 5 L</strong></li>
+                <li>RBC concentration: <strong>β = 5 × 10<sup>6</sup> per mL</strong></li>
+                <li>Victor died exactly after <strong>4 days</strong></li>
+                <li>Surface density of microbes on the conical tip = <strong>σ × 10<sup>12</sup>/m²</strong></li>
+                <li>Neglect any resistive force to the spring’s motion</li>
+                <li>Assume all microbes that pierce the skin reach the bloodstream</li>
+            </ul>
+            <strong>Find the value of σ.</strong>
+        </div>
+    </div>
+    <div class="question-card">
+    <div class="question-number">Keep chasing your partner!</div>
+    <div class="question-text">
+        Three people <strong>P<sub>1</sub></strong>, <strong>P<sub>2</sub></strong>, and <strong>P<sub>3</sub></strong> are standing at the vertices A(0, 0), B(0, 3), and C(4, 0) of a right triangle ABC, respectively.
+        <br><br>
+        At time <strong>t = 0</strong>, they start moving such that:
+        <ul>
+            <li><strong>P<sub>1</sub></strong>'s velocity vector is always aimed at <strong>P<sub>3</sub></strong></li>
+            <li><strong>P<sub>3</sub></strong>'s velocity vector is always aimed at <strong>P<sub>2</sub></strong></li>
+            <li><strong>P<sub>2</sub></strong>'s velocity vector is always aimed at <strong>P<sub>1</sub></strong></li>
+        </ul>
+        Their speeds are such that they meet each other simultaneously, and the triangle formed by them retains its shape throughout the motion.
+        <br><br>
+        Let <strong>Q(h, k)</strong> be the point where they all meet.
+        <br><br>
+        If \( h + k = \frac{p}{q} \), where \( \gcd(p, q) = 1 \), and \( p, q \in \mathbb{N} \), <strong>find the value of \( p + q \)</strong>.
+    </div>
+</div>
+
+    </div>
+    
 
             <div class="questions-content hidden" id="math-questions">
                 <div class="question-card">
-                    <div class="question-number">Q1</div>
-                    <div class="question-text">If log₂(x) = 3, then x equals:</div>
-                    <div class="options">
-                        <div class="option">A) 6</div>
-                        <div class="option correct">B) 8</div>
-                        <div class="option">C) 9</div>
-                        <div class="option">D) 12</div>
-                    </div>
+                    <div class="question-number">Chess Check</div>
+                    <div class="question-text">Let’s assume a standard 8 × 8 chess board where a white knight is at F3 square. Can it give the black
+king at E8 square a check after 20 moves if the king is fixed at its position? (A move is only considered
+when the knight moves)
+</div>
+                    
                 </div>
                 <div class="question-card">
-                    <div class="question-number">Q2</div>
-                    <div class="question-text">The derivative of sin(2x) is:</div>
-                    <div class="options">
-                        <div class="option correct">A) 2cos(2x)</div>
-                        <div class="option">B) cos(2x)</div>
-                        <div class="option">C) -2cos(2x)</div>
-                        <div class="option">D) sin(2x)</div>
+                    <div class="question-number">Inverses as more inverses?</div>
+                    <div class="question-text">Can \(\frac{1}{69420} \) be written as a sum of more than 42069 fractions with numerator one and denominator a
+positive integer such that all the denominators are not prime?
+</div>
+</div>
+<div class="question-card">
+                    <div class="question-number">Can an Ant eat Taco?</div>
+                    <div class="question-text">An ant moves from (x, y) to (y, x) or (x − 69, y − 420) or (420 − x, 69 − y). Suppose ant starts from his
+home (0, 0), can he ever reach taco bell located at (12, −45)?
+
                     </div>
                 </div>
             </div>
@@ -243,35 +321,50 @@
                     <div class="team-avatar"><img src="/images/person1.jpg" alt="Team Avatar" /></div>
                     <div class="team-info">
                         <h3>Sagnik Dey</h3>
-                        <p class="team-role">Competition Director</p>
-                        <p class="team-description">Professor of Mathematics with 15+ years of experience</p>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, IIT Bombay</p>
                     </div>
                 </div>
                 
                 <div class="team-card">
                     <div class="team-avatar">MC</div>
                     <div class="team-info">
-                        <h3>Bibaswan Biswas</h3>
-                        <p class="team-role">Physics Coordinator</p>
-                        <p class="team-description">Physics Department Head and Olympiad Trainer</p>
+                        <h3>Shubhayu Basak</h3>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, IIT Kharagpur</p>
                     </div>
                 </div>
                 
                 <div class="team-card">
                     <div class="team-avatar">ER</div>
                     <div class="team-info">
-                        <h3>Dr. Emily Rodriguez</h3>
-                        <p class="team-role">Question Bank Coordinator</p>
-                        <p class="team-description">Specialist in Mathematical Problem Solving</p>
+                        <h3>Bibaswan Biswas</h3>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, IIT Bombay</p>
                     </div>
                 </div>
-                
+                <div class="team-card">
+                    <div class="team-avatar">ER</div>
+                    <div class="team-info">
+                        <h3>Prithuj Sarkar</h3>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, IIT Kanpur</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">ER</div>
+                    <div class="team-info">
+                        <h3>Mohammad Shaan</h3>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, ISI Kolkata</p>
+                    </div>
+                </div>
                 <div class="team-card">
                     <div class="team-avatar">AK</div>
                     <div class="team-info">
-                        <h3>Alex Kumar</h3>
-                        <p class="team-role">Student Coordinator</p>
-                        <p class="team-description">Final Year Student and Former Participant</p>
+                        <h3>Shubhradeep Paul</h3>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, IIT Delhi</p>
                     </div>
                 </div>
             </div>

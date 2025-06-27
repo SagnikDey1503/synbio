@@ -237,11 +237,13 @@ body {
   padding: 0;
 }
 
+
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
+
 
 /* Typography */
 h1,
@@ -1081,14 +1083,15 @@ section {
 .question-number {
   background: var(--color-primary);
   color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width:fit-content;
+  height: auto;
+  border-radius:0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-16);
+padding:10px;
 }
 
 .question-text {
