@@ -285,60 +285,128 @@ class QuizziclesApp {
         }
     }
 
+    // async handleAnswerSubmit(e) {
+    //     e.preventDefault();
+
+    //     const form = e.target;
+    //     const questionId = parseInt(form.dataset.questionId);
+    //     const answerInput = form.querySelector('.answer-input');
+    //     const answer = parseInt(answerInput.value);
+    //     const submitBtn = form.querySelector('.submit-btn');
+
+    //     if (isNaN(answer) || answer < 0 || answer > 9999) {
+    //         this.showQuestionError(questionId, 'Please enter a valid number between 0 and 9999');
+    //         return;
+    //     }
+
+    //     try {
+    //         submitBtn.disabled = true;
+    //         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    //         const response = await fetch(`${this.apiBase}/contest/submit`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //             },
+    //             body: JSON.stringify({ questionId, answer })
+    //         });
+
+    //         const data = await response.json();
+
+    //         if (response.ok) {
+    //             this.updateQuestionStatus(questionId, {
+    //                 submissions: [data],
+    //                 remainingAttempts: data.remainingAttempts
+    //             });
+
+    //             // Update user score
+    //             this.currentUser.score = data.totalScore;
+    //             this.updateUserInfo();
+
+    //             // Clear input if correct
+    //             if (data.isCorrect) {
+    //                 answerInput.value = '';
+    //             }
+    //         } else {
+    //             this.showQuestionError(questionId, data.message || 'Submission failed');
+    //         }
+    //     } catch (error) {
+    //         console.error('Submit error:', error);
+    //         this.showQuestionError(questionId, 'Network error. Please try again.');
+    //     } finally {
+    //         submitBtn.disabled = false;
+    //         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Answer';
+    //     }
+    // }
     async handleAnswerSubmit(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const form = e.target;
-        const questionId = parseInt(form.dataset.questionId);
-        const answerInput = form.querySelector('.answer-input');
-        const answer = parseInt(answerInput.value);
-        const submitBtn = form.querySelector('.submit-btn');
+    const form = e.target;
+    const questionId = parseInt(form.dataset.questionId);
+    const answerInput = form.querySelector('.answer-input');
+    const submitBtn = form.querySelector('.submit-btn');
+    const answer = parseInt(answerInput.value);
 
-        if (isNaN(answer) || answer < 0 || answer > 9999) {
-            this.showQuestionError(questionId, 'Please enter a valid number between 0 and 9999');
-            return;
-        }
+    if (isNaN(answer) || answer < 0 || answer > 9999) {
+        this.showQuestionError(questionId, 'Please enter a valid number between 0 and 9999');
+        return;
+    }
 
-        try {
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    // Disable button immediately to prevent spamming
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
-            const response = await fetch(`${this.apiBase}/contest/submit`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ questionId, answer })
+    try {
+        const response = await fetch(`${this.apiBase}/contest/submit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ questionId, answer })
+        });
+        console.log(response)
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Update UI status and disable the button accordingly
+            this.updateQuestionStatus(questionId, {
+                submissions: [data],
+                remainingAttempts: data.remainingAttempts
             });
 
-            const data = await response.json();
+            // Update user score
+            this.currentUser.score = data.totalScore;
+            this.updateUserInfo();
 
-            if (response.ok) {
-                this.updateQuestionStatus(questionId, {
-                    submissions: [data],
-                    remainingAttempts: data.remainingAttempts
-                });
-
-                // Update user score
-                this.currentUser.score = data.totalScore;
-                this.updateUserInfo();
-
-                // Clear input if correct
-                if (data.isCorrect) {
-                    answerInput.value = '';
-                }
-            } else {
-                this.showQuestionError(questionId, data.message || 'Submission failed');
+            // Clear input on correct
+            if (data.isCorrect) {
+                answerInput.value = '';
             }
-        } catch (error) {
-            console.error('Submit error:', error);
-            this.showQuestionError(questionId, 'Network error. Please try again.');
-        } finally {
+
+            // ✅ Disable if correct or maxed out
+            if (data.isCorrect || data.remainingAttempts <= 0) {
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.disabled = false; // re-enable only if incorrect and still attempts left
+            }
+
+        } else {
+            this.showQuestionError(questionId, data.message || 'Submission failed');
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Answer';
         }
+    } catch (error) {
+        console.error('Submit error:', error);
+        this.showQuestionError(questionId, 'Network error. Please try again.');
+        submitBtn.disabled = false;
+    } finally {
+        // Restore button text (even if disabled)
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Answer';
     }
+}
+
 
     showQuestionError(questionId, message) {
         const statusDiv = document.getElementById(`status-${questionId}`);

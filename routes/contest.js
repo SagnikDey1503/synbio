@@ -28,27 +28,40 @@ router.post('/submit', [
             return res.status(404).json({ message: 'Question not found' });
         }
 
-        // Get user
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        // Use findOneAndUpdate with atomic increment for attempt count
+        const user = await User.findOneAndUpdate(
+            { 
+                _id: userId,
+                'attempts.questionId': { $ne: questionId } // If attempt doesn't exist
+            },
+            { 
+                $push: { attempts: { questionId, attemptCount: 0 } }
+            },
+            { new: true }
+        );
 
-        // Check attempt count for this question
-        let userAttempt = user.attempts.find(att => att.questionId === questionId);
-        if (!userAttempt) {
-            userAttempt = { questionId, attemptCount: 0 };
-            user.attempts.push(userAttempt);
-        }
+        // Now atomically increment the attempt count
+        const updatedUser = await User.findOneAndUpdate(
+            { 
+                _id: userId,
+                'attempts.questionId': questionId,
+                'attempts.attemptCount': { $lt: question.maxAttempts } // Only if under limit
+            },
+            { 
+                $inc: { 'attempts.$.attemptCount': 1 }
+            },
+            { new: true }
+        );
 
-        if (userAttempt.attemptCount >= question.maxAttempts) {
+        if (!updatedUser) {
             return res.status(400).json({ 
                 message: `Maximum attempts (${question.maxAttempts}) reached for this question` 
             });
         }
 
-        // Increment attempt count
-        userAttempt.attemptCount += 1;
+        // Get the updated attempt count
+        const userAttempt = updatedUser.attempts.find(att => att.questionId === questionId);
+        const currentAttemptCount = userAttempt.attemptCount;
 
         // Check if answer is correct
         const isCorrect = answer === question.answer;
@@ -56,13 +69,14 @@ router.post('/submit', [
 
         if (isCorrect) {
             pointsAwarded = 10; // Base points
-            // Bonus for first attempt
-            if (userAttempt.attemptCount === 1) {
+            if (currentAttemptCount === 1) {
                 pointsAwarded += 5;
             }
 
-            // Add points to user score
-            user.score += pointsAwarded;
+            // Atomically update user score
+            await User.findByIdAndUpdate(userId, {
+                $inc: { score: pointsAwarded }
+            });
         }
 
         // Save submission
@@ -71,21 +85,23 @@ router.post('/submit', [
             questionId,
             submittedAnswer: answer,
             isCorrect,
-            attemptNumber: userAttempt.attemptCount,
+            attemptNumber: currentAttemptCount,
             pointsAwarded
         });
 
         await submission.save();
-        await user.save();
+
+        // Get final user state
+        const finalUser = await User.findById(userId);
 
         // Emit real-time leaderboard update
         const io = req.app.get('io');
         if (isCorrect) {
             io.emit('leaderboard-update', {
                 userId,
-                username: user.username,
-                teamName: user.teamName,
-                score: user.score,
+                username: finalUser.username,
+                teamName: finalUser.teamName,
+                score: finalUser.score,
                 questionId
             });
         }
@@ -93,8 +109,9 @@ router.post('/submit', [
         res.json({
             isCorrect,
             pointsAwarded,
-            totalScore: user.score,
-            remainingAttempts: question.maxAttempts - userAttempt.attemptCount,
+            totalScore: finalUser.score,
+            remainingAttempts: question.maxAttempts - currentAttemptCount,
+            currentAttempts: currentAttemptCount,
             message: isCorrect ? 'Correct answer!' : 'Incorrect answer. Try again.'
         });
 
@@ -103,6 +120,7 @@ router.post('/submit', [
         res.status(500).json({ message: 'Server error during submission' });
     }
 });
+
 
 // Get user's attempt history for a question
 router.get('/attempts/:questionId', auth, async (req, res) => {
