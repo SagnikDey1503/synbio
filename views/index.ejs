@@ -240,7 +240,7 @@
             <h2 class="section-title">Meet the Team</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="team-avatar">DS</div>
+                    <div class="team-avatar"><img src="/images/person1.jpg" alt="Team Avatar" /></div>
                     <div class="team-info">
                         <h3>Sagnik Dey</h3>
                         <p class="team-role">Competition Director</p>
@@ -279,7 +279,7 @@
     </section>
 
     <!-- Sponsors Section -->
-    <section id="sponsors" class="sponsors">
+    <!-- <section id="sponsors" class="sponsors">
         <div class="container">
             <h2 class="section-title">Our Sponsors</h2>
             <div class="sponsors-grid">
@@ -308,7 +308,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
@@ -328,32 +328,45 @@
                         <strong>Address:</strong> Competition Headquarters (TBD)
                     </div>
                 </div>
-                
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label class="form-label" for="name">Name</label>
-                        <input type="text" id="name" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" class="form-control" placeholder="your.email@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="subject">Subject</label>
-                        <select id="subject" class="form-control">
-                            <option value="">Select a subject</option>
-                            <option value="registration">Registration Query</option>
-                            <option value="competition">Competition Details</option>
-                            <option value="sponsorship">Sponsorship</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="message">Message</label>
-                        <textarea id="message" class="form-control" rows="5" placeholder="Your message here..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
-                </form>
+                <form class="contact-form" method="POST" action="/query">
+    <div class="form-group">
+        <label class="form-label" for="name">Name</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="subject">Subject</label>
+        <select id="subject" name="subject" class="form-control">
+            <option value="">Select a subject</option>
+            <option value="registration">Registration Query</option>
+            <option value="competition">Competition Details</option>
+            <option value="sponsorship">Sponsorship</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="message">Message</label>
+        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Your message here..." required></textarea>
+    </div>
+    <% if (error) { %>
+  <div style="color: red; margin-top: 10px;margin-bottom: 10px;text-align: center;">
+    <%= error %>
+  </div>
+<% } %>
+
+<% if (message) { %>
+  <div style="color: rgb(16, 204, 16); margin-top: 10px;margin-bottom: 10px; text-align: center;">
+    <%= message %>
+  </div>
+<% } %>
+
+    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
+</form>
+
+               
             </div>
         </div>
     </section>
@@ -388,5 +401,7 @@
     </footer>
 
     <script src="app1.js"></script>
+   
+
 </body>
 </html>

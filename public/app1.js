@@ -165,50 +165,50 @@ function initQuestionTabs() {
 }
 
 // Contact form handling
-function initContactForm() {
-    const contactForm = document.querySelector('.contact-form');
+// function initContactForm() {
+//     const contactForm = document.querySelector('.contact-form');
     
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+//     if (contactForm) {
+//         contactForm.addEventListener('submit', function(e) {
+//             e.preventDefault();
             
-            // Get form data
-            const formData = new FormData(this);
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+//             // Get form data
+//             const formData = new FormData(this);
+//             const name = document.getElementById('name').value;
+//             const email = document.getElementById('email').value;
+//             const subject = document.getElementById('subject').value;
+//             const message = document.getElementById('message').value;
             
-            // Basic validation
-            if (!name || !email || !message) {
-                showNotification('Please fill in all required fields.', 'error');
-                return;
-            }
+//             // Basic validation
+//             if (!name || !email || !message) {
+//                 showNotification('Please fill in all required fields.', 'error');
+//                 return;
+//             }
             
-            if (!isValidEmail(email)) {
-                showNotification('Please enter a valid email address.', 'error');
-                return;
-            }
+//             if (!isValidEmail(email)) {
+//                 showNotification('Please enter a valid email address.', 'error');
+//                 return;
+//             }
             
-            // Simulate form submission
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
+//             // Simulate form submission
+//             const submitBtn = this.querySelector('button[type="submit"]');
+//             const originalText = submitBtn.textContent;
             
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
+//             submitBtn.textContent = 'Sending...';
+//             submitBtn.disabled = true;
             
-            // Simulate API call
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
+//             // Simulate API call
+//             setTimeout(() => {
+//                 submitBtn.textContent = originalText;
+//                 submitBtn.disabled = false;
                 
-                // Reset form
-                this.reset();
+//                 // Reset form
+//                 this.reset();
                 
-                showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
-            }, 2000);
-        });
-    }
+//                 showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
+//             }, 2000);
+//         });
+//     }
     
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -259,7 +259,7 @@ function initContactForm() {
             }, 300);
         }, 5000);
     }
-}
+
 
 // Scroll animations for sections
 function initScrollAnimations() {

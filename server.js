@@ -5,6 +5,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
 const User = require('./models/User'); // adjust path as needed
+const Query = require('./models/Query'); // adjust path as needed
 
 require('dotenv').config();
 
@@ -45,7 +46,7 @@ app.use('/api/announcements', require('./routes/announcements'));
 
 // Serve the main HTML file for the dashboard
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home_dev.html'));
+    res.render('index',{message:null,error:null});
 });
 app.get('/signup', (req, res) => {
     res.render('signiup_land',{error:null,success:null})
@@ -82,9 +83,22 @@ app.post('/signup', async (req, res) => {
     res.render('signiup_land', { error: err.message,success:null });
   }
 });
-// app.post('/signup', (req, res) => {
-//     res.render('signiup_land',{error:"hello22",success:null})
-// });
+// At the top of server.js
+app.get('/query', async (req, res) => {
+    console.log("get accesw");
+});
+// Add this route after your other routes
+app.post('/query', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    console.log("gg");
+    const contact = new Query({ name, email, subject, message });
+    await contact.save();
+      res.render('index',{message:"The query has been updated! Will get back to you soon",error:null});
+  } catch (err) {
+      res.render('index',{message:null,error:"Failed to submit"});
+  }
+});
 
 
 
