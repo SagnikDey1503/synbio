@@ -7,64 +7,25 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// Register new user
-router.post('/register', [
-    body('username').isLength({ min: 3, max: 50 }).trim().escape(),
-    body('password').isLength({ min: 6 }),
-    body('teamName').isLength({ min: 1, max: 100 }).trim().escape()
-], async (req, res) => {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
 
-        const { username, password, teamName } = req.body;
+router.post('/signup', async (req, res) => {
+  try {
+    const { username, password, teamName } = req.body;
 
-        // Check if user already exists
-        const existingUser = await User.findOne({ username });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
+    // Check if user exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser)
+      return res.status(400).json({ message: 'Username already exists' });
 
-        // Hash password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = new User({ username, password, teamName });
+    await newUser.save();
 
-        // Create new user
-        const user = new User({
-            username,
-            password: hashedPassword,
-            teamName,
-            score: 0,
-            isActive: true,
-            attempts: []
-        });
+    res.status(201).json({ message: 'User registered successfully' });
 
-        await user.save();
-
-        // Generate JWT token
-        const payload = {
-            userId: user._id,
-            username: user.username
-        };
-
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
-
-        res.status(201).json({
-            token,
-            user: {
-                id: user._id,
-                username: user.username,
-                teamName: user.teamName,
-                score: user.score
-            }
-        });
-
-    } catch (error) {
-        console.error('Register error:', error);
-        res.status(500).json({ message: 'Server error during registration' });
-    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // Login user

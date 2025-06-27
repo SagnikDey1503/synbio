@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzicles Contest Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    
+   
+    <div id="app">
+         <!-- Signup Page -->
+          
+<!-- Signup Page -->
+<div id="signup-page" class="page active">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h1>Quizzicles</h1>
+                <p>Sign Up</p>
+            </div>
+            <form id="signup-form" class="login-form">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="signup-username" name="username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-password" name="password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-team">Team Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-users"></i>
+                        <input type="text" id="signup-team" name="team" required>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>Register</span>
+                    <i class="fas fa-user-plus"></i>
+                </button>
+            </form>
+            <div id="signup-error" class="error-message"></div>
+            <div id="signup-success" class="success-message"></div>
+            <div style="margin-top:1rem; text-align:center;">
+                <a href="#" id="goto-login-link">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Login Page -->
+        <div id="login-page" class="page ">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="logo-section">
+                        <div class="logo">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h1>Quizzicles</h1>
+                        <p>Contest Portal</p>
+                    </div>
+
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="login-btn">
+                            <span>Sign In</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div id="login-error" class="error-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <i class="fas fa-brain"></i>
+                    <span>Quizzicles</span>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-details">
+                        <span id="user-name" class="user-name"></span>
+                        <span id="team-name" class="team-name"></span>
+                    </div>
+                    <div class="user-score">
+                        <i class="fas fa-trophy"></i>
+                        <span id="user-score">0</span>
+                    </div>
+                    <button id="logout-btn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <div class="sidebar">
+                    <div class="nav-menu">
+                        <button class="nav-item active" data-page="submit">
+                            <i class="fas fa-edit"></i>
+                            <span>Submit Answers</span>
+                        </button>
+                        <button class="nav-item" data-page="leaderboard">
+                            <i class="fas fa-trophy"></i>
+                            <span>Leaderboard</span>
+                        </button>
+                        <button class="nav-item" data-page="announcements">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Announcements</span>
+                        </button>
+                        <button class="nav-item" data-page="question-paper">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Question Paper</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <!-- Submit Answers Section -->
+                    <div id="submit-section" class="content-section active">
+                        <div class="section-header">
+                            <h2><i class="fas fa-edit"></i> Submit Your Answers</h2>
+                            <p>Enter your answers below. Each question has different attempt limits.</p>
+                        </div>
+
+                        <div class="questions-grid" id="questions-container">
+                            <!-- Questions will be dynamically generated -->
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard Section -->
+                    <div id="leaderboard-section" class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-trophy"></i> Live Leaderboard</h2>
+                            <p>Real-time rankings updated automatically</p>
+                            <div class="refresh-indicator">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Auto-refresh: ON</span>
+                            </div>
+                        </div>
+
+                        <div class="leaderboard-container">
+                            <div class="leaderboard-table">
+                                <div class="table-header">
+                                    <div class="rank-col">Rank</div>
+                                    <div class="team-col">Team</div>
+                                    <div class="user-col">Username</div>
+                                    <div class="score-col">Score</div>
+                                </div>
+                                <div id="leaderboard-content" class="table-content">
+                                    <!-- Leaderboard entries will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Announcements Section -->
+                    <div id="announcements-section" class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-bullhorn"></i> Announcements & Updates</h2>
+                            <p>Important contest information and corrections</p>
+                        </div>
+
+                        <div id="announcements-container" class="announcements-container">
+                            <!-- Announcements will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Question Paper Section -->
+                    <div id="question-paper-section" class="content-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-file-alt"></i> Question Paper</h2>
+                            <p>Contest questions and problem statements</p>
+                        </div>
+
+                        <div class="question-paper-container">
+                            <div class="paper-notice">
+                                <i class="fas fa-info-circle"></i>
+                                <p>The question paper link will be provided separately by the organizers.</p>
+                                <p>Keep this portal open for answer submission and updates.</p>
+                            </div>
+
+                            <div class="external-links">
+                                <a href="#" class="external-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>Download Question Paper (PDF)</span>
+                                </a>
+                                <a href="#" class="external-link" target="_blank">
+                                    <i class="fas fa-globe"></i>
+                                    <span>View Online Question Paper</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Public Leaderboard Page -->
+        <div id="public-leaderboard-page" class="page">
+            <div class="public-header">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h1>Quizzicles Contest</h1>
+                    <p>Live Leaderboard</p>
+                </div>
+
+                <div class="contest-info">
+                    <div class="refresh-indicator">
+                        <i class="fas fa-sync-alt spinning"></i>
+                        <span>Live Updates</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="public-leaderboard-container">
+                <div class="leaderboard-table large">
+                    <div class="table-header">
+                        <div class="rank-col">Rank</div>
+                        <div class="team-col">Team Name</div>
+                        <div class="user-col">Username</div>
+                        <div class="score-col">Score</div>
+                    </div>
+                    <div id="public-leaderboard-content" class="table-content">
+                        <!-- Public leaderboard entries -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="public-footer">
+                <p>Visit the contest portal to participate | Updates every 30 seconds</p>
+                <a href="/" class="portal-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Contest Portal
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

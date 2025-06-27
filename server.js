@@ -4,6 +4,7 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const User = require('./models/User'); // adjust path as needed
 
 require('dotenv').config();
 
@@ -15,7 +16,8 @@ const io = socketIo(server, {
         methods: ["GET", "POST"]
     }
 });
-
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -43,13 +45,49 @@ app.use('/api/announcements', require('./routes/announcements'));
 
 // Serve the main HTML file for the dashboard
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'home_dev.html'));
+});
+app.get('/signup', (req, res) => {
+    res.render('signiup_land',{error:null,success:null})
+});
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login_land.html'));
 });
 
 // Public leaderboard page
 app.get('/public-leaderboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'public-leaderboard.html'));
 });
+
+app.post('/signup', async (req, res) => {
+  const { username, password, teamName } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.render('signiup_land', { error: 'Username already taken. Please choose another one.',success:null });
+    }
+
+    const newUser = new User({
+      username,
+      password,      // Will be hashed by the pre-save hook
+      teamName
+    });
+
+    await newUser.save();
+
+
+   res.render('signiup_land', { error: null,success:"Registered succesfully! Continue to Login" });
+  } catch (err) {
+    res.render('signiup_land', { error: err.message,success:null });
+  }
+});
+// app.post('/signup', (req, res) => {
+//     res.render('signiup_land',{error:"hello22",success:null})
+// });
+
+
+
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {

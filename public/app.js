@@ -37,6 +37,7 @@ class QuizziclesApp {
         if (loginForm) {
             loginForm.addEventListener('submit', this.handleLogin.bind(this));
         }
+       
 
         // Navigation
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -100,6 +101,8 @@ class QuizziclesApp {
             this.showError(errorDiv, 'Network error. Please try again.');
         }
     }
+    
+
 
     async validateToken(token) {
         const response = await fetch(`${this.apiBase}/auth/me`, {
