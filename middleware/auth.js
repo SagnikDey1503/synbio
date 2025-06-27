@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const auth = (req, res, next) => {
     try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
+        console.log('Authorization Header:', req.header('Authorization'));
 
         if (!token) {
             return res.status(401).json({ message: 'No token, authorization denied' });
@@ -16,8 +17,9 @@ const auth = (req, res, next) => {
             return res.status(401).json({ message: 'Token expired' });
         } else if (error.name === 'JsonWebTokenError') {
             return res.status(401).json({ message: 'Invalid token' });
+        } else {
+            return res.status(500).json({ message: 'Token verification failed' });
         }
-        res.status(500).json({ message: 'Token verification failed' });
     }
 };
 

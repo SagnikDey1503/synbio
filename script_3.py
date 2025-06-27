@@ -413,7 +413,8 @@ MIT License - feel free to use for educational and commercial purposes.
     }
   ],
   "env": {
-    "MONGODB_URI": "@mongodb-uri",
+    MONGODB_URI=${process.env.MONGODB_URI},
+
     "JWT_SECRET": "@jwt-secret"
   }
 }""",
