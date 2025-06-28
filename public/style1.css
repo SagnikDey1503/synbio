@@ -114,7 +114,8 @@ body {
   font-size: 1.05rem;
 }
 
-.input-wrapper input {
+.input-wrapper input,
+.input-wrapper select {
   border: none;
   background: transparent;
   outline: none;
@@ -122,6 +123,18 @@ body {
   color: #22223b;
   width: 100%;
   padding: 0.2rem 0;
+}
+
+/* Style for select dropdown arrow */
+.input-wrapper select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236a11cb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1em;
+  padding-right: 1.5rem;
 }
 
 .login-btn {
@@ -168,9 +181,35 @@ a#goto-login-link:hover {
 }
 
 /* Responsive for small screens */
-@media (max-width: 500px) {
+@media (max-width: 1300px) {
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+  #signup-page {
+    margin-right:5px;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+}
+   .login-container{
+    margin: 0;
+    margin-top: 0;
+
+  }
   .login-card {
     padding: 1.2rem 0.5rem;
     width: 98vw;
+    margin:0;
+    margin-top: 20px;
   }
+ 
 }

@@ -64,28 +64,32 @@ app.get('/public-leaderboard', (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-  const { username, password, teamName } = req.body;
+  // Destructure the new fields from the request body
+  const { username, password, fullName, category } = req.body;
 
   try {
+    // Check if the username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.render('signiup_land', { error: 'Username already taken. Please choose another one.',success:null });
+      return res.render('signiup_land', { error: 'Username already taken. Please choose another one.', success: null });
     }
 
+    // Create a new user with fullName and category
     const newUser = new User({
       username,
       password,      // Will be hashed by the pre-save hook
-      teamName
+      fullName,      // Use fullName instead of teamName
+      category       // Store the selected category
     });
 
     await newUser.save();
 
-
-   res.render('signiup_land', { error: null,success:"Registered succesfully! Continue to Login" });
+    res.render('signiup_land', { error: null, success: "Registered successfully! Continue to Login" });
   } catch (err) {
-    res.render('signiup_land', { error: err.message,success:null });
+    res.render('signiup_land', { error: err.message, success: null });
   }
 });
+
 // At the top of server.js
 app.get('/query', async (req, res) => {
     console.log("get accesw");

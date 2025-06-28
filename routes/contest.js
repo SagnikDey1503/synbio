@@ -4,7 +4,7 @@ const User = require('../models/User');
 const Question = require('../models/Question');
 const Submission = require('../models/Submission');
 const auth = require('../middleware/auth');
-
+const mongoose = require('mongoose');
 const router = express.Router();
 
 // Submit answer to a question
@@ -13,6 +13,14 @@ router.post('/submit', [
     body('questionId').isInt({ min: 1, max: 30 }),
     body('answer').isInt({ min: 0, max: 9999 })
 ], async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(500).json({ message: 'Database connection error' });
+    }
+
+    // console.log('Submit route hit');
+    // console.log('User from auth:', req.user);
+    // console.log('Request body:', req.body);
+
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -28,35 +36,36 @@ router.post('/submit', [
             return res.status(404).json({ message: 'Question not found' });
         }
 
-        // Use findOneAndUpdate with atomic increment for attempt count
-        const user = await User.findOneAndUpdate(
-            { 
-                _id: userId,
-                'attempts.questionId': { $ne: questionId } // If attempt doesn't exist
-            },
-            { 
-                $push: { attempts: { questionId, attemptCount: 0 } }
-            },
-            { new: true }
-        );
+        // Check if user has existing attempt record
+        let updatedUser;
+        const user = await User.findOne({ _id: userId });
+        const existingAttempt = user.attempts.find(att => att.questionId === questionId);
 
-        // Now atomically increment the attempt count
-        const updatedUser = await User.findOneAndUpdate(
-            { 
-                _id: userId,
-                'attempts.questionId': questionId,
-                'attempts.attemptCount': { $lt: question.maxAttempts } // Only if under limit
-            },
-            { 
-                $inc: { 'attempts.$.attemptCount': 1 }
-            },
-            { new: true }
-        );
+        if (!existingAttempt) {
+            // First attempt — initialize with attemptCount = 1
+            updatedUser = await User.findOneAndUpdate(
+                { _id: userId },
+                { $push: { attempts: { questionId, attemptCount: 1 } } },
+                { new: true }
+            );
+        } else {
+            // Already attempted — increment only if under max
+            if (existingAttempt.attemptCount >= question.maxAttempts) {
+                return res.status(400).json({
+                    message: `Maximum attempts (${question.maxAttempts}) reached for this question`
+                });
+            }
 
-        if (!updatedUser) {
-            return res.status(400).json({ 
-                message: `Maximum attempts (${question.maxAttempts}) reached for this question` 
-            });
+            updatedUser = await User.findOneAndUpdate(
+                {
+                    _id: userId,
+                    'attempts.questionId': questionId
+                },
+                {
+                    $inc: { 'attempts.$.attemptCount': 1 }
+                },
+                { new: true }
+            );
         }
 
         // Get the updated attempt count
@@ -85,7 +94,7 @@ router.post('/submit', [
             questionId,
             submittedAnswer: answer,
             isCorrect,
-            attemptNumber: currentAttemptCount,
+            attemptNumber: currentAttemptCount, // always ≥ 1 now
             pointsAwarded
         });
 

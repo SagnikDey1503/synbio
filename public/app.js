@@ -143,13 +143,24 @@ class QuizziclesApp {
         document.getElementById(pageId).classList.add('active');
     }
 
+    // updateUserInfo() {
+    //     if (this.currentUser) {
+    //         document.getElementById('user-name').textContent = this.currentUser.username;
+    //         document.getElementById('team-name').textContent = this.currentUser.teamName;
+    //         document.getElementById('user-score').textContent = this.currentUser.score;
+    //     }
+    // }
     updateUserInfo() {
-        if (this.currentUser) {
-            document.getElementById('user-name').textContent = this.currentUser.username;
-            document.getElementById('team-name').textContent = this.currentUser.teamName;
-            document.getElementById('user-score').textContent = this.currentUser.score;
-        }
+        console.log("Current User:", this.currentUser);
+
+    if (this.currentUser) {
+        document.getElementById('user-name').textContent = this.currentUser.username;
+        document.getElementById('full-name').textContent = this.currentUser.fullName || '—';
+        // document.getElementById('user-category').textContent = this.currentUser.category || '—';
+        document.getElementById('user-score').textContent = this.currentUser.score;
     }
+}
+
 
     async loadDashboardData() {
         await Promise.all([
@@ -427,31 +438,58 @@ class QuizziclesApp {
         }
     }
 
+    // renderLeaderboard() {
+    //     const container = document.getElementById('leaderboard-content');
+    //     if (!container) return;
+
+    //     container.innerHTML = '';
+
+    //     this.leaderboard.forEach(entry => {
+    //         const row = document.createElement('div');
+    //         row.className = 'leaderboard-row';
+
+    //         let rankClass = 'rank-badge';
+    //         if (entry.rank === 1) rankClass += ' first';
+    //         else if (entry.rank === 2) rankClass += ' second';
+    //         else if (entry.rank === 3) rankClass += ' third';
+
+    //         row.innerHTML = `
+    //             <div class="${rankClass}">#${entry.rank}</div>
+    //             <div class="team-name">${entry.teamName}</div>
+    //             <div class="username">${entry.username}</div>
+    //             <div class="score">${entry.score}</div>
+    //         `;
+
+    //         container.appendChild(row);
+    //     });
+    // }
     renderLeaderboard() {
-        const container = document.getElementById('leaderboard-content');
-        if (!container) return;
+    const container = document.getElementById('leaderboard-content');
+    if (!container) return;
 
-        container.innerHTML = '';
+    container.innerHTML = '';
 
-        this.leaderboard.forEach(entry => {
-            const row = document.createElement('div');
-            row.className = 'leaderboard-row';
+    this.leaderboard.forEach(entry => {
+        const row = document.createElement('div');
+        row.className = 'leaderboard-row';
 
-            let rankClass = 'rank-badge';
-            if (entry.rank === 1) rankClass += ' first';
-            else if (entry.rank === 2) rankClass += ' second';
-            else if (entry.rank === 3) rankClass += ' third';
+        let rankClass = 'rank-badge';
+        if (entry.rank === 1) rankClass += ' first';
+        else if (entry.rank === 2) rankClass += ' second';
+        else if (entry.rank === 3) rankClass += ' third';
 
-            row.innerHTML = `
-                <div class="${rankClass}">#${entry.rank}</div>
-                <div class="team-name">${entry.teamName}</div>
-                <div class="username">${entry.username}</div>
-                <div class="score">${entry.score}</div>
-            `;
+        row.innerHTML = `
+            <div class="${rankClass}">#${entry.rank}</div>
+            <div class="fullname-col">${entry.fullName || '—'}</div>
+            <div class="username">${entry.username}</div>
+            <div class="category-col">${entry.category || '—'}</div>
+            <div class="score">${entry.score}</div>
+        `;
 
-            container.appendChild(row);
-        });
-    }
+        container.appendChild(row);
+    });
+}
+
 
     updateLeaderboardRealtime(data) {
         // Update the leaderboard in real-time
@@ -605,12 +643,13 @@ class PublicLeaderboard {
             else if (entry.rank === 2) rankClass += ' second';
             else if (entry.rank === 3) rankClass += ' third';
 
-            row.innerHTML = `
-                <div class="${rankClass}">#${entry.rank}</div>
-                <div class="team-name">${entry.teamName}</div>
-                <div class="username">${entry.username}</div>
-                <div class="score">${entry.score}</div>
-            `;
+             row.innerHTML = `
+            <div class="${rankClass}">#${entry.rank}</div>
+            <div class="fullname-col">${entry.fullName || '—'}</div>
+            <div class="username">${entry.username}</div>
+            <div class="category-col">${entry.category || '—'}</div>
+            <div class="score">${entry.score}</div>
+        `;
 
             container.appendChild(row);
         });

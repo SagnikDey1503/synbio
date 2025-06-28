@@ -15,11 +15,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     },
-    teamName: {
+    fullName: {  // Changed from teamName to fullName
         type: String,
         required: true,
         trim: true,
         maxlength: 50
+    },
+    category: {  // New field added
+        type: String,
+        required: true,
+        enum: ["Class 8-12 and UG 1st year", "open"],
+        default: "open"
     },
     isActive: {
         type: Boolean,

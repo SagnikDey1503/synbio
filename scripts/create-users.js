@@ -8,11 +8,11 @@ const User = require('../models/User');
 
 const sampleUsers = [
     { username: 'team1', password: 'password123', teamName: 'Lightning Bolts' },
-    { username: 'team2', password: 'password123', teamName: 'Brain Busters' },
-    { username: 'team3', password: 'password123', teamName: 'Quiz Masters' },
-    { username: 'team4', password: 'password123', teamName: 'Smart Cookies' },
-    { username: 'team5', password: 'password123', teamName: 'Think Tank' },
-    { username: 'admin', password: 'admin123', teamName: 'Organizers' }
+    // { username: 'team2', password: 'password123', teamName: 'Brain Busters' },
+    // { username: 'team3', password: 'password123', teamName: 'Quiz Masters' },
+    // { username: 'team4', password: 'password123', teamName: 'Smart Cookies' },
+    // { username: 'team5', password: 'password123', teamName: 'Think Tank' },
+    // { username: 'admin', password: 'admin123', teamName: 'Organizers' }
 ];
 
 async function createUsers() {

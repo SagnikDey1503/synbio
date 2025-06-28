@@ -12,7 +12,9 @@ router.get('/', async (req, res) => {
             .populate('authorId', 'username')
             .sort({ createdAt: -1 })
             .limit(50);
+//  const filtered = announcements.filter(a => a.authorId !== null);
 
+//         res.json(filtered);
         res.json(announcements);
     } catch (error) {
         console.error('Get announcements error:', error);

@@ -23,7 +23,7 @@ async function addAnnouncement() {
       content: 'Round 1 is now live. Go to the contest page to begin.',
       type: 'urgent', // 'general', 'correction', or 'urgent'
       isActive: true,
-      authorId: '685ea4ad9cf468642b12e14f' // ⚠️ Replace with a valid ObjectId from your User collection
+      authorId: '685f95a92bf09279c08607ae' // ⚠️ Replace with a valid ObjectId from your User collection
     };
 
     const newAnnouncement = new Announcement(announcementData);

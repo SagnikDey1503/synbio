@@ -19,29 +19,29 @@ const sampleQuestions = [
     { id: 9, answer: 9753, maxAttempts: 3 },
     { id: 10, answer: 1111, maxAttempts: 3 },
 
-    // Questions 11-20 have 2 attempts
-    { id: 11, answer: 2222, maxAttempts: 2 },
-    { id: 12, answer: 3333, maxAttempts: 2 },
-    { id: 13, answer: 4444, maxAttempts: 2 },
-    { id: 14, answer: 5555, maxAttempts: 2 },
-    { id: 15, answer: 6666, maxAttempts: 2 },
-    { id: 16, answer: 7777, maxAttempts: 2 },
-    { id: 17, answer: 8888, maxAttempts: 2 },
-    { id: 18, answer: 9999, maxAttempts: 2 },
-    { id: 19, answer: 1010, maxAttempts: 2 },
-    { id: 20, answer: 2020, maxAttempts: 2 },
+    // // Questions 11-20 have 2 attempts
+    // { id: 11, answer: 2222, maxAttempts: 2 },
+    // { id: 12, answer: 3333, maxAttempts: 2 },
+    // { id: 13, answer: 4444, maxAttempts: 2 },
+    // { id: 14, answer: 5555, maxAttempts: 2 },
+    // { id: 15, answer: 6666, maxAttempts: 2 },
+    // { id: 16, answer: 7777, maxAttempts: 2 },
+    // { id: 17, answer: 8888, maxAttempts: 2 },
+    // { id: 18, answer: 9999, maxAttempts: 2 },
+    // { id: 19, answer: 1010, maxAttempts: 2 },
+    // { id: 20, answer: 2020, maxAttempts: 2 },
 
-    // Questions 21-30 have 1 attempt only
-    { id: 21, answer: 100, maxAttempts: 1 },
-    { id: 22, answer: 200, maxAttempts: 1 },
-    { id: 23, answer: 300, maxAttempts: 1 },
-    { id: 24, answer: 400, maxAttempts: 1 },
-    { id: 25, answer: 500, maxAttempts: 1 },
-    { id: 26, answer: 600, maxAttempts: 1 },
-    { id: 27, answer: 700, maxAttempts: 1 },
-    { id: 28, answer: 800, maxAttempts: 1 },
-    { id: 29, answer: 900, maxAttempts: 1 },
-    { id: 30, answer: 999, maxAttempts: 1 }
+    // // Questions 21-30 have 1 attempt only
+    // { id: 21, answer: 100, maxAttempts: 1 },
+    // { id: 22, answer: 200, maxAttempts: 1 },
+    // { id: 23, answer: 300, maxAttempts: 1 },
+    // { id: 24, answer: 400, maxAttempts: 1 },
+    // { id: 25, answer: 500, maxAttempts: 1 },
+    // { id: 26, answer: 600, maxAttempts: 1 },
+    // { id: 27, answer: 700, maxAttempts: 1 },
+    // { id: 28, answer: 800, maxAttempts: 1 },
+    // { id: 29, answer: 900, maxAttempts: 1 },
+    // { id: 30, answer: 999, maxAttempts: 1 }
 ];
 
 async function setupQuestions() {
