@@ -75,12 +75,12 @@ app.get('/login',timeGateMiddleware(unlockTime), (req, res) => {
 });
 
 // Public leaderboard page
-app.get('/public_Leaderboard', async (req, res) => {
+app.get('/public_leaderboard', async (req, res) => {
   try {
     const users = await User.find().sort({ score: -1 }); // example sorting
-    res.render('public_Leaderboard', { users, error:null });
+    res.render('public-leaderboard', { users, error:null });
   } catch (err) {
-    res.render('public_Leaderboard', { users: [], error: 'Error loading leaderboard' });
+    res.render('public-leaderboard', { users: [], error: 'Error loading leaderboard' });
   }
 });
 
