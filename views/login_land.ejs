@@ -7,6 +7,112 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+<style>
+.countdown-container {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+
+    background: #ffffff;
+    color: #2c3e50;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 16px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.countdown-container:hover {
+    background-color: #f9f9f9;
+    transform: translateX(-50%) scale(1.02);
+}
+
+#time-remaining {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e74c3c;
+    letter-spacing: 0.5px;
+    animation: pulse 1s infinite ease-in-out;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Even smaller on phones */
+@media (max-width: 610px) {
+  .countdown-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    font-size: 0.75rem;
+    gap: 3px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    z-index: 999;
+    width: 30vw;
+  }
+
+  #time-remaining {
+    font-size: 0.78rem;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    color: #e74c3c;
+    animation: none; /* remove pulse for smaller display */
+  }
+}
+@media (max-width: 500px) {
+  .countdown-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: -5px;
+    left: 55%;
+    transform: translateX(-50%);
+    padding: 0;
+   font-size: 10px;
+    gap: 3px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    z-index: 999;
+    width: 30vw;
+  }
+
+  #time-remaining {
+    font-size: 0.6rem;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    color: #e74c3c;
+    animation: none; /* remove pulse for smaller display */
+  }
+}
+
+
+</style>
+
+
+
 
 </head>
 <body>
@@ -80,6 +186,9 @@
                     </button>
                 </div>
             </nav>
+                  <div class="countdown-container" style="text-align: center; font-size: 1rem; padding: 10px;">
+    ⏳ Time Remaining: <span id="time-remaining">--:--:--</span>
+</div>
 
             <div class="dashboard-content">
                 <div class="sidebar">
@@ -250,5 +359,110 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>
+  <!-- <script>
+    const refreshDeadline = new Date('<%= endTime %>');
+
+    function checkAndRefreshOnce() {
+        const now = new Date();
+
+        if (now >= refreshDeadline) {
+            location.reload();  // Refresh page once
+        } else {
+            // Check every 5 seconds until target time is reached
+            const interval = setInterval(() => {
+                const now = new Date();
+                if (now >= refreshDeadline) {
+                    clearInterval(interval);
+                    location.reload();
+                }
+            }, 5000);
+        }
+    }
+
+    checkAndRefreshOnce();
+</script>
+
+<script>
+    const countdownEndTime = new Date('<%= endTime %>');
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = countdownEndTime - now;
+
+        if (diff <= 0) {
+            document.getElementById('countdown').textContent = "⏳ Time's up!";
+            return;
+        }
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').textContent =
+            `⏳ Time Remaining: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script> -->
+<!-- Countdown display -->
+
+
+<!-- Script section -->
+<script>
+    const endTime = new Date('<%= endTime %>');
+    const timeDisplay = document.getElementById('time-remaining');
+    let refreshed = false;
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = endTime - now;
+
+        if (diff <= 0 && !refreshed) {
+            timeDisplay.textContent = "00:00:00";
+            refreshed = true;
+            location.reload(); // Reload once when time is up
+            return;
+        }
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        timeDisplay.textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+</script>
+<!-- <script>
+const countdownContainer = document.querySelector('.countdown-container');
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+countdownContainer.addEventListener('mousedown', function (e) {
+    isDragging = true;
+    offsetX = e.clientX - countdownContainer.offsetLeft;
+    offsetY = e.clientY - countdownContainer.offsetTop;
+    countdownContainer.style.transform = "none"; // Remove center translate when dragging
+});
+
+document.addEventListener('mousemove', function (e) {
+    if (isDragging) {
+        countdownContainer.style.left = `${e.clientX - offsetX}px`;
+        countdownContainer.style.top = `${e.clientY - offsetY}px`;
+    }
+});
+
+document.addEventListener('mouseup', function () {
+    isDragging = false;
+});
+</script> -->
+
+
 </body>
+
 </html>

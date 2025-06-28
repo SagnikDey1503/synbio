@@ -8,9 +8,13 @@ const User = require('./models/User'); // adjust path as needed
 const Query = require('./models/Query'); // adjust path as needed
 const timeGateMiddleware = require('./middleware/time');
 const timeLockMiddleware = require('./middleware/timeGateMiddleware');
+const examMiddleware = require('./middleware/exam');
+const startTime = '2025-06-28T21:45:00+05:30';
+const endTime = '2025-06-28T21:50:59+05:30';
+const end = new Date(endTime); // convert to Date object
 require('dotenv').config();
-const unlockTime = '2025-05-29T23:40:00+05:30';
-const closeTime = '2025-07-28T16:52:00+05:30';
+// const unlockTime = '2025-06-29T19:35:00+05:30';
+const closeTime = '2025-06-28T21:44:00+05:30';
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -70,9 +74,11 @@ app.get('/', async (req, res) => {
 app.get('/signup', timeLockMiddleware(closeTime),(req, res) => {
     res.render('signiup_land',{error:null,success:null})
 });
-app.get('/login',timeGateMiddleware(unlockTime), (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login_land.html'));
+app.get('/login', examMiddleware(startTime, endTime), (req, res) => {
+       res.render('login_land', { endTime: end.toISOString() }); // ← IMPORTANT
+
 });
+
 
 // Public leaderboard page
 app.get('/public_leaderboard', async (req, res) => {
