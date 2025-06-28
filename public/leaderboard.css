@@ -1,0 +1,77 @@
+/* Container Styling */
+body{
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+.leaderboard-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.leaderboard-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 24px;
+    color: #1e293b;
+}
+
+/* Table Styling */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 1rem;
+}
+
+.leaderboard-table th {
+    background-color: #f1f5f9;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: #f9fafb;
+    transition: background 0.2s ease;
+}
+
+/* Rank Highlight */
+.leaderboard-table td.rank {
+    font-weight: bold;
+    color: #2563eb;
+}
+
+/* Top 3 badge */
+.leaderboard-table tbody tr:nth-child(1) .rank::after {
+    content: " 🥇";
+}
+.leaderboard-table tbody tr:nth-child(2) .rank::after {
+    content: " 🥈";
+}
+.leaderboard-table tbody tr:nth-child(3) .rank::after {
+    content: " 🥉";
+}
+
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .leaderboard-table th, .leaderboard-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .leaderboard-title {
+        font-size: 1.5rem;
+    }
+}

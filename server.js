@@ -7,8 +7,10 @@ const path = require('path');
 const User = require('./models/User'); // adjust path as needed
 const Query = require('./models/Query'); // adjust path as needed
 const timeGateMiddleware = require('./middleware/time');
+const timeLockMiddleware = require('./middleware/timeGateMiddleware');
 require('dotenv').config();
-const unlockTime = '2025-06-27T23:40:00+05:30';
+const unlockTime = '2025-05-29T23:40:00+05:30';
+const closeTime = '2025-07-28T16:52:00+05:30';
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -65,7 +67,7 @@ app.get('/', async (req, res) => {
     });
   }
 });
-app.get('/signup', (req, res) => {
+app.get('/signup', timeLockMiddleware(closeTime),(req, res) => {
     res.render('signiup_land',{error:null,success:null})
 });
 app.get('/login',timeGateMiddleware(unlockTime), (req, res) => {
@@ -73,9 +75,15 @@ app.get('/login',timeGateMiddleware(unlockTime), (req, res) => {
 });
 
 // Public leaderboard page
-app.get('/public-leaderboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'public-leaderboard.html'));
+app.get('/public_Leaderboard', async (req, res) => {
+  try {
+    const users = await User.find().sort({ score: -1 }); // example sorting
+    res.render('public_Leaderboard', { users, error:null });
+  } catch (err) {
+    res.render('public_Leaderboard', { users: [], error: 'Error loading leaderboard' });
+  }
 });
+
 
 app.post('/signup', async (req, res) => {
   // Destructure the new fields from the request body
