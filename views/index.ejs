@@ -70,10 +70,11 @@
                         <div class="stat-number" data-target="2">0</div>
                         <div class="stat-label">Edition</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="stat-label">Expected Participants</div>
-                    </div>
+                   <div class="stat">
+  <div class="stat-number" data-target="<%= registrationCount %>">0</div>
+  <div class="stat-label">Registrations</div>
+</div>
+
                     <div class="stat">
                         <div class="stat-number" data-target="2">0</div>
                         <div class="stat-label">Subjects</div>
@@ -318,7 +319,7 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
             <h2 class="section-title">Meet the Team</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="team-avatar"><img src="/images/person1.jpg" alt="Team Avatar" /></div>
+                    <div class="team-avatar"><img src="/images/sagnik.png" alt="SD" /></div>
                     <div class="team-info">
                         <h3>Sagnik Dey</h3>
                         <p class="team-role">Organizer</p>
@@ -327,7 +328,7 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
                 </div>
                 
                 <div class="team-card">
-                    <div class="team-avatar">MC</div>
+                    <div class="team-avatar"><img src="/images/shubhayu.png" alt="SB"/></div>
                     <div class="team-info">
                         <h3>Shubhayu Basak</h3>
                         <p class="team-role">Organizer</p>
@@ -336,7 +337,7 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
                 </div>
                 
                 <div class="team-card">
-                    <div class="team-avatar">ER</div>
+                    <div class="team-avatar"><img src="/images/bibaswan.png" alt="BB"/></div>
                     <div class="team-info">
                         <h3>Bibaswan Biswas</h3>
                         <p class="team-role">Organizer</p>
@@ -352,7 +353,7 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
                     </div>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">ER</div>
+                    <div class="team-avatar"><img src="/images/shaan.png" alt="MS" /></div>
                     <div class="team-info">
                         <h3>Mohammad Shaan</h3>
                         <p class="team-role">Organizer</p>
@@ -365,6 +366,14 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
                         <h3>Shubhradeep Paul</h3>
                         <p class="team-role">Organizer</p>
                         <p class="team-description">Sophomore, IIT Delhi</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><img src="/images/shuvam.png" alt="SB" /></div>
+                    <div class="team-info">
+                        <h3>Shuvam Biswas</h3>
+                        <p class="team-role">Organizer</p>
+                        <p class="team-description">Sophomore, Heritage Institute of Technology</p>
                     </div>
                 </div>
             </div>
@@ -412,7 +421,8 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
                     <h3>Get in Touch</h3>
                     <p>Have questions about QUIZZICLES? We're here to help!</p>
                     <div class="contact-item">
-                        <strong>Email:</strong> info@quizzicles.org
+                        <strong>Email:</strong>  contact.quizzicles@gmail.com
+
                     </div>
                     <div class="contact-item">
                         <strong>Phone:</strong> +91 XXXX-XXXX-XX
@@ -434,9 +444,10 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
         <label class="form-label" for="subject">Subject</label>
         <select id="subject" name="subject" class="form-control">
             <option value="">Select a subject</option>
+               <option value="bug">Report bug</option>
             <option value="registration">Registration Query</option>
             <option value="competition">Competition Details</option>
-            <option value="sponsorship">Sponsorship</option>
+            <!-- <option value="sponsorship">Sponsorship</option> -->
             <option value="other">Other</option>
         </select>
     </div>

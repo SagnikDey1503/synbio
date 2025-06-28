@@ -48,8 +48,22 @@ app.use('/api/leaderboard', require('./routes/leaderboard'));
 app.use('/api/announcements', require('./routes/announcements'));
 
 // Serve the main HTML file for the dashboard
-app.get('/', (req, res) => {
-    res.render('index',{message:null,error:null});
+app.get('/', async (req, res) => {
+  try {
+    const registrationCount = await User.countDocuments(); // Counts all users
+    res.render('index', {
+      registrationCount,
+      message: null,
+      error: null
+    });
+  } catch (err) {
+    console.error('Error fetching user count:', err);
+    res.render('index', {
+      registrationCount: 100,
+      message: null,
+      error: 'Unable to fetch user count.'
+    });
+  }
 });
 app.get('/signup', (req, res) => {
     res.render('signiup_land',{error:null,success:null})
