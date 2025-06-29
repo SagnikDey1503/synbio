@@ -216,7 +216,7 @@ class QuizziclesApp {
 
         container.innerHTML = '';
 
-        for (let i = 1; i <= 30; i++) {
+        for (let i = 1; i <= 13; i++) {
             const questionData = this.questions.find(q => q.id === i) || { id: i, maxAttempts: 1 };
             const questionCard = this.createQuestionCard(questionData);
             container.appendChild(questionCard);
@@ -480,7 +480,7 @@ class QuizziclesApp {
 
         row.innerHTML = `
             <div class="${rankClass}">#${entry.rank}</div>
-            <div class="fullname-col">${entry.fullName || '—'}</div>
+             <div class="fullname-col">${entry.fullName || '—'}</div>
             <div class="username">${entry.username}</div>
             <div class="category-col">${entry.category || '—'}</div>
             <div class="score">${entry.score}</div>

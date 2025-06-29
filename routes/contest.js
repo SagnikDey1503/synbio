@@ -10,7 +10,7 @@ const router = express.Router();
 // Submit answer to a question
 router.post('/submit', [
     auth,
-    body('questionId').isInt({ min: 1, max: 30 }),
+    body('questionId').isInt({ min: 1, max: 13 }),
     body('answer').isInt({ min: 0, max: 9999 })
 ], async (req, res) => {
     if (mongoose.connection.readyState !== 1) {

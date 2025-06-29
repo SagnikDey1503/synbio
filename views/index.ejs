@@ -10,6 +10,99 @@
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
+<!-- <style>
+.response-box {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  font-weight: 500;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.response-box.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.response-box.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  color: inherit;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style> -->
+<style>
+#responseMessage {
+  position: relative;
+}
+
+.response-box {
+  position: relative;
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin-top: 16px;
+  font-weight: 500;
+  font-size: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  animation: slideInRight 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.response-box.success {
+  background-color: #e6ffed;
+  color: #227d3d;
+  border-left: 6px solid #2ecc71;
+}
+
+.response-box.error {
+  background-color: #ffe6e6;
+  color: #c0392b;
+  border-left: 6px solid #e74c3c;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
+
 </head>
 <body>
     <!-- Navigation -->
@@ -431,8 +524,8 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
                         <strong>Address:</strong> Competition Headquarters (TBD)
                     </div>
                 </div>
-                <form class="contact-form" method="POST" action="/query">
-    <div class="form-group">
+                <form id="contactForm" class="contact-form" >
+    <div class="form-group" >
         <label class="form-label" for="name">Name</label>
         <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
     </div>
@@ -455,17 +548,8 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
         <label class="form-label" for="message">Message</label>
         <textarea id="message" name="message" class="form-control" rows="5" placeholder="Your message here..." required></textarea>
     </div>
-    <% if (error) { %>
-  <div style="color: red; margin-top: 10px;margin-bottom: 10px;text-align: center;">
-    <%= error %>
-  </div>
-<% } %>
+<div id="responseMessage" style="text-align: center; margin-top: 10px;"></div>
 
-<% if (message) { %>
-  <div style="color: rgb(16, 204, 16); margin-top: 10px;margin-bottom: 10px; text-align: center;">
-    <%= message %>
-  </div>
-<% } %>
 
     <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
 </form>
@@ -505,7 +589,81 @@ home (0, 0), can he ever reach taco bell located at (12, −45)?
     </footer>
 
     <script src="app1.js"></script>
-   
+   <!-- <script>
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Stop normal form submission
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const responseDiv = document.getElementById('responseMessage');
+    responseDiv.innerHTML = ''; // clear old message
+
+    try {
+      const res = await fetch('/submit-form', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        responseDiv.innerHTML = `<p style="color: green;">${result.message}</p>`;
+        form.reset(); // optional: clear fields after success
+      } else {
+        responseDiv.innerHTML = `<p style="color: red;">${result.message}</p>`;
+      }
+    } catch (err) {
+      responseDiv.innerHTML = `<p style="color: red;">An error occurred. Please try again.</p>`;
+    }
+  });
+</script> -->
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const subject = form.subject.value.trim();
+  const message = form.message.value.trim();
+
+  const responseDiv = document.getElementById('responseMessage');
+  responseDiv.innerHTML = ''; // Clear previous message
+
+  const createMessageBox = (msg, type = 'success') => {
+    return `
+      <div class="response-box ${type}">
+        <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+        ${msg}
+      </div>
+    `;
+  };
+
+  try {
+    const res = await fetch('/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, subject, message })
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      responseDiv.innerHTML = createMessageBox(result.message, 'success');
+      form.reset();
+    } else {
+      responseDiv.innerHTML = createMessageBox(result.message, 'error');
+    }
+  } catch (err) {
+    responseDiv.innerHTML = createMessageBox('An error occurred. Please try again.', 'error');
+  }
+});
+</script>
+
+
 
 </body>
 </html>

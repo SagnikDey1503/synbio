@@ -20,9 +20,9 @@ const sampleQuestions = [
     { id: 10, answer: 1111, maxAttempts: 3 },
 
     // // Questions 11-20 have 2 attempts
-    // { id: 11, answer: 2222, maxAttempts: 2 },
-    // { id: 12, answer: 3333, maxAttempts: 2 },
-    // { id: 13, answer: 4444, maxAttempts: 2 },
+    { id: 11, answer: 2222, maxAttempts: 2 },
+    { id: 12, answer: 3333, maxAttempts: 2 },
+    { id: 13, answer: 4444, maxAttempts: 1},
     // { id: 14, answer: 5555, maxAttempts: 2 },
     // { id: 15, answer: 6666, maxAttempts: 2 },
     // { id: 16, answer: 7777, maxAttempts: 2 },

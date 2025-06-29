@@ -10,7 +10,7 @@ const timeGateMiddleware = require('./middleware/time');
 const timeLockMiddleware = require('./middleware/timeGateMiddleware');
 const examMiddleware = require('./middleware/exam');
 const startTime = '2025-06-28T21:45:00+05:30';
-const endTime = '2025-06-28T21:50:59+05:30';
+const endTime = '2025-06-29T21:50:59+05:30';
 const end = new Date(endTime); // convert to Date object
 require('dotenv').config();
 // const unlockTime = '2025-06-29T19:35:00+05:30';
@@ -59,8 +59,8 @@ app.get('/', async (req, res) => {
     const registrationCount = await User.countDocuments(); // Counts all users
     res.render('index', {
       registrationCount,
-      message: null,
-      error: null
+      // message: null,
+      // error: null
     });
   } catch (err) {
     console.error('Error fetching user count:', err);
@@ -119,19 +119,19 @@ app.post('/signup', async (req, res) => {
 });
 
 // At the top of server.js
-app.get('/query', async (req, res) => {
-    console.log("get accesw");
-});
+
 // Add this route after your other routes
 app.post('/query', async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
-    console.log("gg");
     const contact = new Query({ name, email, subject, message });
+     if (!name || !email || !message || !subject) {
+    return res.json({ success: false, message: 'All fields are required.' });
+  }
     await contact.save();
-      res.render('index',{message:"The query has been updated! Will get back to you soon",error:null});
+        return res.json({ success: true, message: 'Form submitted successfully!' });
   } catch (err) {
-      res.render('index',{message:null,error:"Failed to submit"});
+     return res.json({ success: false, message: 'Form submitted successfully!' });
   }
 });
 
@@ -168,7 +168,7 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`Dashboard: http://localhost:${PORT}`);
-    console.log(`Public Leaderboard: http://localhost:${PORT}/public-leaderboard`);
+    console.log(`Public Leaderboard: http://localhost:${PORT}/public_Leaderboard`);
 });
 
 module.exports = app;
