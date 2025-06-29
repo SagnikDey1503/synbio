@@ -4,13 +4,14 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const Announcement = require('./models/Announcement'); // adjust path as needed
 const User = require('./models/User'); // adjust path as needed
 const Query = require('./models/Query'); // adjust path as needed
 const timeGateMiddleware = require('./middleware/time');
 const timeLockMiddleware = require('./middleware/timeGateMiddleware');
 const examMiddleware = require('./middleware/exam');
-const startTime = '2025-07-10T12:00:00+05:30';
-const endTime = '2025-07-10T18:00:59+05:30';
+const startTime = '2025-07-24T00:00:00+05:30';
+const endTime = '2025-07-25T00:00:00+05:30';
 const end = new Date(endTime); // convert to Date object
 require('dotenv').config();
 // const unlockTime = '2025-06-29T19:35:00+05:30';
@@ -78,7 +79,15 @@ app.get('/login', examMiddleware(startTime, endTime), (req, res) => {
        res.render('login_land', { endTime: end.toISOString() }); // ← IMPORTANT
 
 });
-
+app.get('/ann', async (req, res) => {
+  try {
+    const announcements = await Announcement.find({ isActive: true }).sort({ createdAt: -1 });
+    res.render('ann', { announcements });
+  } catch (err) {
+    console.error('Error loading announcements:', err);
+    res.status(500).send('Something went wrong.');
+  }
+});
 
 // Public leaderboard page
 app.get('/public_leaderboard', async (req, res) => {
@@ -92,31 +101,38 @@ app.get('/public_leaderboard', async (req, res) => {
 
 
 app.post('/signup', async (req, res) => {
-  // Destructure the new fields from the request body
-  const { username, password, fullName, category } = req.body;
+  const { username, password, fullName, category, email } = req.body;
 
   try {
-    // Check if the username already exists
-    const existingUser = await User.findOne({ username });
+    // Check if username or email already exists
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+
     if (existingUser) {
-      return res.render('signiup_land', { error: 'Username already taken. Please choose another one.', success: null });
+      const errorMsg = existingUser.username === username
+        ? 'Username already taken. Please choose another one.'
+        : 'Email already registered. Try logging in.';
+      return res.render('signiup_land', { error: errorMsg, success: null });
     }
 
-    // Create a new user with fullName and category
+    // Create new user
     const newUser = new User({
       username,
-      password,      // Will be hashed by the pre-save hook
-      fullName,      // Use fullName instead of teamName
-      category       // Store the selected category
+      password,      // Will be hashed via pre-save hook
+      fullName,
+      category,
+      email
     });
 
     await newUser.save();
 
     res.render('signiup_land', { error: null, success: "Registered successfully! Continue to Login" });
+
   } catch (err) {
+    console.error('Signup error:', err);
     res.render('signiup_land', { error: err.message, success: null });
   }
 });
+
 
 // At the top of server.js
 

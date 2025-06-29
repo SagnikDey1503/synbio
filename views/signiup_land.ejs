@@ -27,6 +27,16 @@
               <input type="text" id="signup-username" name="username" value="<%= typeof username !== 'undefined' ? username : '' %>" required />
             </div>
           </div>
+
+          <!-- 📧 Email Field -->
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="signup-email" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>" required />
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="signup-password">Password</label>
             <div class="input-wrapper">
@@ -34,6 +44,7 @@
               <input type="password" id="signup-password" name="password" placeholder="Enter at least 6 characters" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="signup-fullname">Full Name</label>
             <div class="input-wrapper">
@@ -41,6 +52,7 @@
               <input type="text" id="signup-fullname" name="fullName" value="<%= typeof fullName !== 'undefined' ? fullName : '' %>" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="signup-category">Category</label>
             <div class="input-wrapper">
@@ -52,28 +64,31 @@
               </select>
             </div>
           </div>
+
           <button type="submit" class="login-btn">
             <span>Register</span>
             <i class="fas fa-user-plus"></i>
           </button>
         </form>
+
         <div style="margin-top: 1rem; text-align: center;">
-  <a href="/login" id="goto-login-link" class="exam-portal-link"
-     style="
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background-color: #4CAF50;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-     ">
-    <i class="fas fa-arrow-right-to-bracket" style="margin-right: 8px;"></i>
-    Go to Exam Portal
-  </a>
-</div>
-<% if (error) { %>
+          <a href="/login" id="goto-login-link" class="exam-portal-link"
+             style="
+              display: inline-block;
+              padding: 0.6rem 1.2rem;
+              background-color: #4CAF50;
+              color: white;
+              border-radius: 8px;
+              text-decoration: none;
+              font-weight: 500;
+              transition: all 0.3s ease;
+             ">
+            <i class="fas fa-arrow-right-to-bracket" style="margin-right: 8px;"></i>
+            Go to Exam Portal
+          </a>
+        </div>
+
+        <% if (error) { %>
           <div id="signup-error" class="error-message" style="color:red; margin-top: 10px;"><%= error %></div>
         <% } %>
 
@@ -95,56 +110,50 @@
             }, 1000);
           </script>
         <% } %>
-       <div style="margin-top: 1rem; text-align: center;">
-<a 
-  href="https://chat.whatsapp.com/DzfdxIdonrzJh1mtU5BagK" 
-  target="_blank" 
-  class="whatsapp-link"
-  style="color: #25D366; font-weight: 500; text-decoration: none; display: inline-block; margin-top: 5px;">
-  <i class="fab fa-whatsapp"></i> Contact us on WhatsApp
-</a>
 
-<style>
-  .whatsapp-link:hover {
-    color: #1ebe57;
-    text-decoration: underline;
-    transform: scale(1.03);
-    transition: all 0.2s ease;
-  }
-</style>
-<div class="external-links" style="margin-bottom: 1rem; margin-top: 0.5rem; text-align: center;">
-  <a href="https://discord.gg/yourservercode" target="_blank" class="external-link discord-link" 
-     style="text-decoration: none; color: #5865F2; font-weight: 500;">
-    <i class="fab fa-discord"></i>
-    <span>Join our Discord</span>
-  </a>
-</div>
+        <div style="margin-top: 1rem; text-align: center;">
+          <a 
+            href="https://chat.whatsapp.com/DzfdxIdonrzJh1mtU5BagK" 
+            target="_blank" 
+            class="whatsapp-link"
+            style="color: #25D366; font-weight: 500; text-decoration: none; display: inline-block; margin-top: 5px;">
+            <i class="fab fa-whatsapp"></i> Contact us on WhatsApp
+          </a>
 
-<style>
-  .discord-link:hover {
-    color: #4854d4;
-    text-decoration: underline;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-  }
-</style>
+          <style>
+            .whatsapp-link:hover {
+              color: #1ebe57;
+              text-decoration: underline;
+              transform: scale(1.03);
+              transition: all 0.2s ease;
+            }
+          </style>
 
+          <div class="external-links" style="margin-bottom: 1rem; margin-top: 0.5rem; text-align: center;">
+            <a href="https://discord.gg/yourservercode" target="_blank" class="external-link discord-link" 
+               style="text-decoration: none; color: #5865F2; font-weight: 500;">
+              <i class="fab fa-discord"></i>
+              <span>Join our Discord</span>
+            </a>
+          </div>
 
+          <style>
+            .discord-link:hover {
+              color: #4854d4;
+              text-decoration: underline;
+              transition: color 0.3s ease, text-decoration 0.3s ease;
+            }
+          </style>
+        </div>
 
-</div> 
-        
-
-    
-      
-<style>
-  .exam-portal-link:hover {
-    background-color: #45a049;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
-    text-decoration: none;
-  }
-</style>
-
-
+        <style>
+          .exam-portal-link:hover {
+            background-color: #45a049;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+            text-decoration: none;
+          }
+        </style>
       </div>
     </div>
   </div>

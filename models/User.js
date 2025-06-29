@@ -10,18 +10,25 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 20
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        match: [/.+\@.+\..+/, 'Please fill a valid email address']
+    },
     password: {
         type: String,
         required: true,
         minlength: 6
     },
-    fullName: {  // Changed from teamName to fullName
+    fullName: {
         type: String,
         required: true,
         trim: true,
         maxlength: 50
     },
-    category: {  // New field added
+    category: {
         type: String,
         required: true,
         enum: ["Class 8-12 and UG 1st year", "open"],
