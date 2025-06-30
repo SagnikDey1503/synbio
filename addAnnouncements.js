@@ -19,11 +19,11 @@ async function addAnnouncement() {
   try {
     // Replace these values manually
     const announcementData = {
-      title: 'announcement check',
-      content: 'Round 1 is now live. Go to the contest page to begin.',
-      type: 'correction', // 'general', 'correction', or 'urgent'
+      title: 'Registrations',
+      content: 'Registration Portal is active! Sign up now!',
+      type: 'general', // 'general', 'correction', or 'urgent'
       isActive: true,
-      authorId: '6861a9ffb04d9f8c48546938' // ⚠️ Replace with a valid ObjectId from your User collection
+      authorId: '6862b4c6018633fcc7320124' // ⚠️ Replace with a valid ObjectId from your User collection
     };
 
     const newAnnouncement = new Announcement(announcementData);
