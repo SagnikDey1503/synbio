@@ -80,15 +80,20 @@ app.get('/login', examMiddleware(startTime, endTime), (req, res) => {
 
 });
 const moment = require('moment-timezone');
+
+
 app.get('/ann', async (req, res) => {
   try {
     const announcements = await Announcement.find({ isActive: true }).sort({ createdAt: -1 });
 
-    // Format createdAt to IST for each announcement
-    const formattedAnnouncements = announcements.map(a => ({
-      ...a._doc, // or a.toObject(), depending on your schema
-      formattedDate: moment(a.createdAt).tz('Asia/Kolkata').format('DD MMM YYYY, hh:mm A')
-    }));
+    // Safely convert to plain JS objects and format date to IST
+    const formattedAnnouncements = announcements.map(a => {
+      const obj = a.toObject(); // safer than using a._doc
+      return {
+        ...obj,
+        formattedDate: moment(obj.createdAt).tz('Asia/Kolkata').format('DD MMM YYYY, hh:mm A')
+      };
+    });
 
     res.render('ann', { announcements: formattedAnnouncements });
   } catch (err) {
@@ -96,6 +101,7 @@ app.get('/ann', async (req, res) => {
     res.status(500).send('Something went wrong.');
   }
 });
+
 // Public leaderboard page
 app.get('/public_leaderboard', async (req, res) => {
   try {
