@@ -847,7 +847,7 @@ body {
 
 .marquee {
   white-space: nowrap;
-  animation: scroll 30s linear infinite;
+  animation: scroll 15s linear infinite;
   font-weight: var(--font-weight-medium);
 }
 
