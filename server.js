@@ -79,16 +79,23 @@ app.get('/login', examMiddleware(startTime, endTime), (req, res) => {
        res.render('login_land', { endTime: end.toISOString() }); // ← IMPORTANT
 
 });
+const moment = require('moment-timezone');
 app.get('/ann', async (req, res) => {
   try {
     const announcements = await Announcement.find({ isActive: true }).sort({ createdAt: -1 });
-    res.render('ann', { announcements });
+
+    // Format createdAt to IST for each announcement
+    const formattedAnnouncements = announcements.map(a => ({
+      ...a._doc, // or a.toObject(), depending on your schema
+      formattedDate: moment(a.createdAt).tz('Asia/Kolkata').format('DD MMM YYYY, hh:mm A')
+    }));
+
+    res.render('ann', { announcements: formattedAnnouncements });
   } catch (err) {
     console.error('Error loading announcements:', err);
     res.status(500).send('Something went wrong.');
   }
 });
-
 // Public leaderboard page
 app.get('/public_leaderboard', async (req, res) => {
   try {
