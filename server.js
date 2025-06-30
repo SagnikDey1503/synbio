@@ -15,7 +15,7 @@ const endTime = '2025-07-25T00:00:00+05:30';
 const end = new Date(endTime); // convert to Date object
 require('dotenv').config();
 // const unlockTime = '2025-06-29T19:35:00+05:30';
-const closeTime = '2025-07-08T00:00:00+05:30';
+const closeTime = '2025-07-23T00:00:00+05:30';
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
