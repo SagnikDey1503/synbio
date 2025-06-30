@@ -842,7 +842,7 @@ body {
   color: white;
   padding: var(--space-8) 0;
   overflow: hidden;
-  margin-top: 62px;
+  margin-top: 87px;
 }
 
 .marquee {
@@ -1189,11 +1189,12 @@ padding:10px;
 
 .date-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: var(--space-12) var(--space-16);
   background: var(--color-secondary);
   border-radius: var(--radius-base);
+  gap:10px;
 }
 
 .date-label {

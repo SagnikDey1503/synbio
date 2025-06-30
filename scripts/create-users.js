@@ -7,13 +7,81 @@ require('dotenv').config();
 const User = require('../models/User');
 
 const sampleUsers = [
-    { username: 'team1', password: 'password123', teamName: 'Lightning Bolts' },
-    // { username: 'team2', password: 'password123', teamName: 'Brain Busters' },
-    // { username: 'team3', password: 'password123', teamName: 'Quiz Masters' },
-    // { username: 'team4', password: 'password123', teamName: 'Smart Cookies' },
-    // { username: 'team5', password: 'password123', teamName: 'Think Tank' },
-    // { username: 'admin', password: 'admin123', teamName: 'Organizers' }
+  // Bengali Users
+  {
+    username: "arnab10",
+    email: "arnab10@example.com",
+    password: "password123",
+    fullName: "Arnab Chatterjee",
+    category: "Junior"
+  },
+  {
+    username: "moumita8",
+    email: "moumita8@example.com",
+    password: "password123",
+    fullName: "Moumita Ghosh",
+    category: "Junior"
+  },
+  {
+    username: "sourav11",
+    email: "sourav11@example.com",
+    password: "password123",
+    fullName: "Sourav Banerjee",
+    category: "Senior"
+  },
+  {
+    username: "ananya12",
+    email: "ananya12@example.com",
+    password: "password123",
+    fullName: "Ananya Das",
+    category: "Senior"
+  },
+  {
+    username: "riddhi9",
+    email: "riddhi9@example.com",
+    password: "password123",
+    fullName: "Riddhi Sen",
+    category: "Junior"
+  },
+  {
+    username: "subho13",
+    email: "subho13@example.com",
+    password: "password123",
+    fullName: "Subhojit Mukherjee",
+    category: "Senior"
+  },
+  {
+    username: "titli7",
+    email: "titli7@example.com",
+    password: "password123",
+    fullName: "Titli Roy",
+    category: "Junior"
+  },
+
+  // Non-Bengali Users
+  {
+    username: "neha12",
+    email: "neha12@example.com",
+    password: "password123",
+    fullName: "Neha Sharma",
+    category: "Senior"
+  },
+  {
+    username: "rajat8",
+    email: "rajat8@example.com",
+    password: "password123",
+    fullName: "Rajat Verma",
+    category: "Junior"
+  },
+  {
+    username: "aditya10",
+    email: "aditya10@example.com",
+    password: "password123",
+    fullName: "Aditya Rathi",
+    category: "Senior"
+  }
 ];
+
 
 async function createUsers() {
     try {

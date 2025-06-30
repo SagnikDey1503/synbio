@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ["Class 8-12 and UG 1st year", "open"],
-        default: "open"
+        enum: ["Junior", "Senior"],
+        default: "Senior"
     },
     isActive: {
         type: Boolean,
