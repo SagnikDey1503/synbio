@@ -20,7 +20,7 @@ async function addAnnouncement() {
     // Replace these values manually
     const announcementData = {
       title: 'Registrations',
-      content: 'Registration Portal is active! Sign up now!!',
+      content: 'Portal is active! Sign up now!!',
       type: 'general', // 'general', 'correction', or 'urgent'
       isActive: true,
       authorId: '6862b4c6018633fcc7320124' // ⚠️ Replace with a valid ObjectId from your User collection
