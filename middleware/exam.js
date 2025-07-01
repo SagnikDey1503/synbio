@@ -31,18 +31,17 @@ const examTimeGate = (startTime, endTime) => {
             const minutes = timeLeft % 60;
 
             try {
-                const announcements = await Announcement.find({ isActive: true })
-                    .sort({ createdAt: -1 })
-                    .limit(5);
+    const announcements = await Announcement.find({ isActive: true })
+        .sort({ createdAt: -1 })
+        .limit(5);
 
-                return res.render('locked', {
-                    unlockTimeISO: start.toISOString(),
-                    hoursLeft: hours,
-                    minutesLeft: minutes,
-                    announcements,
-                    message: null
-                });
-            } catch (err) {
+    const formattedAnnouncements = announcements.map(a => {
+        const obj = a.toObject();
+        return {
+            ...obj,
+            formattedDate: moment(obj.createdAt).tz('Asia/Kolkata').format('D MMM YYYY, h:mm A')
+        };
+    })}catch (err) {
                 console.error('Failed to fetch announcements:', err);
                 return res.render('locked', {
                     unlockTimeISO: start.toISOString(),
