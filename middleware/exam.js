@@ -1,11 +1,28 @@
 const moment = require('moment-timezone');
 const Announcement = require('../models/Announcement');
+const jwt = require('jsonwebtoken');
+const secret = process.env.JWT_SECRET || 'hello123';
 
 const examTimeGate = (startTime, endTime) => {
     return async (req, res, next) => {
         const now = moment().tz('Asia/Kolkata');
         const start = moment.tz(startTime, 'Asia/Kolkata');
         const end = moment.tz(endTime, 'Asia/Kolkata');
+
+          const token = req.query.token;
+
+    // If token exists, verify it
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, secret);
+            if (decoded.role === 'admin') {
+                return next(); // allow access
+            }
+        } catch (err) {
+            return res.status(401).send("Invalid or expired token.");
+        }
+    }
+
 
         if (now.isBefore(start)) {
             // Before exam start
