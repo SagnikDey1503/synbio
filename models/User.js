@@ -2,13 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const sanitizeHtml = require('sanitize-html');
 
-// Helper function to get current IST Date
-function getISTDate() {
-    const utc = new Date();
-    const offset = 5.5 * 60 * 60 * 1000; // IST offset in ms
-    return new Date(utc.getTime() + offset);
-}
-
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -61,24 +54,15 @@ const userSchema = new mongoose.Schema({
     }],
     lastActivity: {
         type: Date,
-        default: () => getISTDate()
-    },
-    createdAt: {
-        type: Date
-    },
-    updatedAt: {
-        type: Date
+        default: () => new Date()
     }
+}, {
+    timestamps: true // ✅ Automatically adds `createdAt` and `updatedAt`
 });
 
-// ✅ Set IST timestamps & sanitize on save
+// ✅ Sanitize + hash on save
 userSchema.pre('save', async function(next) {
-    const nowIST = getISTDate();
-
-    if (!this.createdAt) this.createdAt = nowIST;
-    this.updatedAt = nowIST;
-
-    // Sanitize fields
+    // Sanitize
     if (this.isModified('username')) {
         this.username = sanitizeHtml(this.username, { allowedTags: [], allowedAttributes: {} });
     }
@@ -101,13 +85,7 @@ userSchema.pre('save', async function(next) {
     }
 });
 
-// ✅ Set IST updatedAt on updates
-userSchema.pre('findOneAndUpdate', function(next) {
-    this._update.updatedAt = getISTDate();
-    next();
-});
-
-// ✅ Compare password method
+// ✅ Password comparison method
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
