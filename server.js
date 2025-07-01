@@ -86,16 +86,17 @@ app.get('/ann', async (req, res) => {
   try {
     const announcements = await Announcement.find({ isActive: true }).sort({ createdAt: -1 });
 
-    // Safely convert to plain JS objects and format date to IST
-    const formattedAnnouncements = announcements.map(a => {
-      const obj = a.toObject(); // safer than using a._doc
-      return {
-        ...obj,
-        formattedDate: moment(obj.createdAt).tz('Asia/Kolkata').format('DD MMM YYYY, hh:mm A')
-      };
-    });
+  //   // Safely convert to plain JS objects and format date to IST
+  //  const formattedAnnouncements = announcements.map(a => {
+  // const obj = a.toObject();
+  // return {
+  //   ...obj,
+  //   formattedDate: moment(obj.createdAt).format('hh:mm A') // No .tz() used
+  // };
+// });
 
-    res.render('ann', { announcements: formattedAnnouncements });
+
+    res.render('ann', { announcements: announcements });
   } catch (err) {
     console.error('Error loading announcements:', err);
     res.status(500).send('Something went wrong.');
