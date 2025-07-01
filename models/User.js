@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const sanitizeHtml = require('sanitize-html');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -8,7 +9,8 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true,
         minlength: 3,
-        maxlength: 20
+        maxlength: 20,
+        match: [/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores.']
     },
     email: {
         type: String,
@@ -26,7 +28,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxlength: 50
+        maxlength: 50,
+        match: [/^[a-zA-Z0-9\s]+$/, 'Full name can only contain letters, numbers, and spaces.']
     },
     category: {
         type: String,
@@ -57,7 +60,20 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
+// ✅ Sanitize and hash before saving
 userSchema.pre('save', async function(next) {
+    // Sanitize fields to remove HTML/script tags
+    if (this.isModified('username')) {
+        this.username = sanitizeHtml(this.username, { allowedTags: [], allowedAttributes: {} });
+    }
+    if (this.isModified('email')) {
+        this.email = sanitizeHtml(this.email, { allowedTags: [], allowedAttributes: {} });
+    }
+    if (this.isModified('fullName')) {
+        this.fullName = sanitizeHtml(this.fullName, { allowedTags: [], allowedAttributes: {} });
+    }
+
+    // Hash password if modified
     if (!this.isModified('password')) return next();
 
     try {
@@ -69,6 +85,7 @@ userSchema.pre('save', async function(next) {
     }
 });
 
+// ✅ Compare password method
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };

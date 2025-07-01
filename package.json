@@ -19,7 +19,8 @@
     "jsonwebtoken": "^9.0.2",
     "moment-timezone": "^0.6.0",
     "mongodb": "^6.17.0",
-    "mongoose": "^7.5.0",
+    "mongoose": "^7.8.7",
+    "sanitize-html": "^2.17.0",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
