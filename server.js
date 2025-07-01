@@ -26,7 +26,7 @@ const io = socketIo(server, {
 });
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-ee
+
 
 
 // Middleware
