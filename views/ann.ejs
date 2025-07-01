@@ -113,7 +113,8 @@
           <div class="announcement-card <%= a.type %>">
             <div class="announcement-title"><%= a.title %></div>
             <div class="announcement-content"><%= a.content %></div>
-            <div class="announcement-meta"><%= new Date(a.createdAt).toLocaleString() %></div>
+            <div class="announcement-meta"><%= new Date(a.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) %></div>
+
           </div>
         <% }) %>
       </div>

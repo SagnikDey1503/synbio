@@ -2,16 +2,23 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const sanitizeHtml = require('sanitize-html');
 
+// Helper function to get current IST Date
+function getISTDate() {
+    const utc = new Date();
+    const offset = 5.5 * 60 * 60 * 1000; // IST offset in ms
+    return new Date(utc.getTime() + offset);
+}
+
 const userSchema = new mongoose.Schema({
-   username: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    minlength: 3,
-    maxlength: 20,
-    match: [/^[a-zA-Z0-9_@ ]+$/, 'Username can only contain letters, numbers, underscores (_), spaces, and @.']
-},
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minlength: 3,
+        maxlength: 20,
+        match: [/^[a-zA-Z0-9_@ ]+$/, 'Username can only contain letters, numbers, underscores (_), spaces, and @.']
+    },
     email: {
         type: String,
         required: true,
@@ -54,15 +61,24 @@ const userSchema = new mongoose.Schema({
     }],
     lastActivity: {
         type: Date,
-        default: Date.now
+        default: () => getISTDate()
+    },
+    createdAt: {
+        type: Date
+    },
+    updatedAt: {
+        type: Date
     }
-}, {
-    timestamps: true
 });
 
-// ✅ Sanitize and hash before saving
+// ✅ Set IST timestamps & sanitize on save
 userSchema.pre('save', async function(next) {
-    // Sanitize fields to remove HTML/script tags
+    const nowIST = getISTDate();
+
+    if (!this.createdAt) this.createdAt = nowIST;
+    this.updatedAt = nowIST;
+
+    // Sanitize fields
     if (this.isModified('username')) {
         this.username = sanitizeHtml(this.username, { allowedTags: [], allowedAttributes: {} });
     }
@@ -73,7 +89,7 @@ userSchema.pre('save', async function(next) {
         this.fullName = sanitizeHtml(this.fullName, { allowedTags: [], allowedAttributes: {} });
     }
 
-    // Hash password if modified
+    // Hash password
     if (!this.isModified('password')) return next();
 
     try {
@@ -83,6 +99,12 @@ userSchema.pre('save', async function(next) {
     } catch (error) {
         next(error);
     }
+});
+
+// ✅ Set IST updatedAt on updates
+userSchema.pre('findOneAndUpdate', function(next) {
+    this._update.updatedAt = getISTDate();
+    next();
 });
 
 // ✅ Compare password method
