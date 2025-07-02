@@ -73,11 +73,13 @@ router.post('/submit', [
         const currentAttemptCount = userAttempt.attemptCount;
 
         // Check if answer is correct
-        const isCorrect = answer === question.answer;
+       const tolerance = question.tolerance || 0;
+const isCorrect = Math.abs(answer - question.correctAnswer) <= tolerance;
+
         let pointsAwarded = 0;
 
         if (isCorrect) {
-            pointsAwarded = 10; // Base points
+            pointsAwarded = 10; // +1Base points
             if (currentAttemptCount === 1) {
                 pointsAwarded += 5;
             }

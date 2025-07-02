@@ -8,12 +8,24 @@ const questionSchema = new mongoose.Schema({
         min: 1,
         max: 13
     },
-    answer: {
-        type: Number,
-        required: true,
-        min: 0,
-        max: 9999
-    },
+    // answer: {
+    //     type: Number,
+    //     required: true,
+    //     min: 0,
+    //     max: 9999
+    // },
+    correctAnswer: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 9999
+},
+tolerance: {
+    type: Number,
+    required: true,
+    default: 0 // You can adjust this per question
+},
+
     maxAttempts: {
         type: Number,
         required: true,
