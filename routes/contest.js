@@ -74,7 +74,9 @@ router.post('/submit', [
 
         // Check if answer is correct
        const tolerance = question.tolerance || 0;
-const isCorrect = Math.abs(answer - question.correctAnswer) <= tolerance;
+       const numericAnswer = Number(answer);
+    //    console.log( Math.abs(numericAnswer - question.correctAnswer) );
+const isCorrect = Math.abs(numericAnswer - question.correctAnswer) <= tolerance;
 
         let pointsAwarded = 0;
 
@@ -94,7 +96,7 @@ const isCorrect = Math.abs(answer - question.correctAnswer) <= tolerance;
         const submission = new Submission({
             userId,
             questionId,
-            submittedAnswer: answer,
+            submittedAnswer: numericAnswer,
             isCorrect,
             attemptNumber: currentAttemptCount, // always ≥ 1 now
             pointsAwarded

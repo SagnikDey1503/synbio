@@ -19,8 +19,8 @@ async function addAnnouncement() {
   try {
     // Replace these values manually
     const announcementData = {
-      title: 'Registrations',
-      content: 'Portal is active! Sign up now!!',
+      title: 'Leaderboard and Category',
+      content: 'Rankings for both the Junior and Senior categories will be manually evaluated from the common leaderboard',
       type: 'general', // 'general', 'correction', or 'urgent'
       isActive: true,
       authorId: '6862b4c6018633fcc7320124' // ⚠️ Replace with a valid ObjectId from your User collection
