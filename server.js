@@ -10,8 +10,8 @@ const Query = require('./models/Query'); // adjust path as needed
 // const timeGateMiddleware = require('./middleware/time');
 const timeLockMiddleware = require('./middleware/timeGateMiddleware');
 const examMiddleware = require('./middleware/exam');
-const startTime = '2025-07-04T22:33:00+05:30';
-const endTime = '2025-07-05T22:33:00+05:30';
+const startTime = '2025-07-25T18:00:00+05:30';
+const endTime = '2025-07-26T18:00:00+05:30';
 const end = new Date(endTime); // convert to Date object
 require('dotenv').config();
 // const unlockTime = '2025-06-29T19:35:00+05:30';
