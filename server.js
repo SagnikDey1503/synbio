@@ -183,7 +183,7 @@ app.post('/forgot-password', async (req, res) => {
     }
 
     const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
-    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetLink = `https://quizzicles-contest.onrender.com/reset-password/${resetToken}`;
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 minutes
