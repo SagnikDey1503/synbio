@@ -4,9 +4,13 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const bcrypt = require('bcryptjs');
+const sanitizeHtml = require('sanitize-html');
 const Announcement = require('./models/Announcement'); // adjust path as needed
 const User = require('./models/User'); // adjust path as needed
 const Query = require('./models/Query'); // adjust path as needed
+const jwt = require('jsonwebtoken');
+const sendEmail = require('./utils/sendEmail'); // Create a helper to send email
 // const timeGateMiddleware = require('./middleware/time');
 const timeLockMiddleware = require('./middleware/timeGateMiddleware');
 const examMiddleware = require('./middleware/exam');
@@ -164,6 +168,105 @@ app.post('/query', async (req, res) => {
   }
 });
 
+app.get('/forgot-password', (req, res) => {
+  res.render('forgot-password', { error: null, success: null });
+});
+
+
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.render('forgot-password', { error: 'No user found with that email.', success: null });
+    }
+
+    const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 minutes
+    await user.save();
+
+    await sendEmail(user.email, "Reset Your Password", `
+      Hello ${user.username},
+
+      Please click the link below to reset your password:
+
+      ${resetLink}
+
+      If you did not request this, you can ignore this email.
+    `);
+
+    res.render('forgot-password', { error: null, success: 'Reset link sent! Please check your email.' });
+  } catch (err) {
+    console.error(err);
+    res.render('forgot-password', { error: 'Something went wrong.', success: null });
+  }
+});
+app.get('/reset-password/:token', async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ _id: decoded.id, resetPasswordToken: token });
+
+    if (!user || user.resetPasswordExpires < Date.now()) {
+      return res.render('reset-password', { error: 'Invalid or expired reset token.', success: null, token: null });
+    }
+
+    res.render('reset-password', { error: null, success: null, token });
+  } catch (err) {
+    console.error(err);
+    res.render('reset-password', { error: 'Token is invalid or expired.', success: null, token: null });
+  }
+});
+
+
+app.post('/reset-password/:token', async (req, res) => {
+  const { token } = req.params;
+  const rawPassword = req.body.password;
+  const password = sanitizeHtml(rawPassword, { allowedTags: [], allowedAttributes: {} }).trim();
+
+  if (!password || password.length < 6) {
+    return res.render('reset-password', { error: 'Password must be at least 6 characters.', success: null, token });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findOne({
+      _id: decoded.id,
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.render('reset-password', { error: 'Token expired or invalid.', success: null, token: null });
+    }
+
+    user.password = password; // ✅ RAW password — let schema hash it
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save(); // ✅ triggers hashing via pre('save')
+
+    res.render('reset-password', {
+      success: 'Your password has been reset successfully! You can now log in.',
+      error: null,
+      token: null
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.render('reset-password', {
+      error: 'Something went wrong. Please try again.',
+      success: null,
+      token: null
+    });
+  }
+});
 
 
 

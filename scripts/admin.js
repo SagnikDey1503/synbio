@@ -8,5 +8,5 @@ const token = jwt.sign(
 );
 
 console.log("Secure access link:");
-console.log(`https://quizzicles-contest.onrender.com/login?token=${token}`);
-// console.log(`http://localhost:3000/login?token=${token}`);
+// console.log(`https://quizzicles-contest.onrender.com/login?token=${token}`);
+console.log(`http://localhost:3000/login?token=${token}`);

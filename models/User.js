@@ -55,7 +55,16 @@ const userSchema = new mongoose.Schema({
     lastActivity: {
         type: Date,
         default: () => new Date()
-    }
+    },
+    resetPasswordToken: {
+    type: String,
+    default: null
+},
+resetPasswordExpires: {
+    type: Date,
+    default: null
+}
+
 }, {
     timestamps: true // ✅ Automatically adds `createdAt` and `updatedAt`
 });
