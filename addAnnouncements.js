@@ -19,11 +19,11 @@ async function addAnnouncement() {
   try {
     // Replace these values manually
     const announcementData = {
-      title: 'Leaderboard and Category',
-      content: 'Rankings for both the Junior and Senior categories will be manually evaluated from the common leaderboard',
-      type: 'general', // 'general', 'correction', or 'urgent'
+      title: 'New feature',
+      content: 'The password reset option has been implemented in the SIGN-UP page!',
+      type: 'correction', // 'general', 'correction', or 'urgent'
       isActive: true,
-      authorId: '6862b4c6018633fcc7320124' // ⚠️ Replace with a valid ObjectId from your User collection
+      authorId: '68681972cfb47a715782b158' // ⚠️ Replace with a valid ObjectId from your User collection
     };
 
     const newAnnouncement = new Announcement(announcementData);
