@@ -19,8 +19,8 @@ async function addAnnouncement() {
   try {
     // Replace these values manually
     const announcementData = {
-      title: 'New feature',
-      content: 'The password reset option has been implemented in the SIGN-UP page!',
+      title: 'Discord Link',
+      content: 'The Discord Link is working, previously it had got expired.',
       type: 'correction', // 'general', 'correction', or 'urgent'
       isActive: true,
       authorId: '68681972cfb47a715782b158' // ⚠️ Replace with a valid ObjectId from your User collection
