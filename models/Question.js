@@ -6,26 +6,19 @@ const questionSchema = new mongoose.Schema({
         required: true,
         unique: true,
         min: 1,
-        max: 13
+        max: 45
     },
-    // answer: {
-    //     type: Number,
-    //     required: true,
-    //     min: 0,
-    //     max: 9999
-    // },
     correctAnswer: {
-    type: Number,
-    required: true,
-    min: 0,
-    max: 9999
-},
-tolerance: {
-    type: Number,
-    required: true,
-    default: 0 // You can adjust this per question
-},
-
+        type: Number,
+        required: true,
+        min: 0,
+        max: 9999
+    },
+    tolerance: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     maxAttempts: {
         type: Number,
         required: true,
@@ -36,6 +29,12 @@ tolerance: {
     isActive: {
         type: Boolean,
         default: true
+    },
+    points: {
+        type: Number,
+        required: true,
+        default: 10,
+        min: 0
     }
 }, {
     timestamps: true

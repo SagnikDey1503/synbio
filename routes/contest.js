@@ -10,16 +10,12 @@ const router = express.Router();
 // Submit answer to a question
 router.post('/submit', [
     auth,
-    body('questionId').isInt({ min: 1, max: 13 }),
+    body('questionId').isInt({ min: 1, max: 45 }),
     body('answer').isInt({ min: 0, max: 9999 })
 ], async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
         return res.status(500).json({ message: 'Database connection error' });
     }
-
-    // console.log('Submit route hit');
-    // console.log('User from auth:', req.user);
-    // console.log('Request body:', req.body);
 
     try {
         const errors = validationResult(req);
@@ -73,18 +69,14 @@ router.post('/submit', [
         const currentAttemptCount = userAttempt.attemptCount;
 
         // Check if answer is correct
-       const tolerance = question.tolerance || 0;
-       const numericAnswer = Number(answer);
-    //    console.log( Math.abs(numericAnswer - question.correctAnswer) );
-const isCorrect = Math.abs(numericAnswer - question.correctAnswer) <= tolerance;
+        const tolerance = question.tolerance || 0;
+        const numericAnswer = Number(answer);
+        const isCorrect = Math.abs(numericAnswer - question.correctAnswer) <= tolerance;
 
         let pointsAwarded = 0;
 
         if (isCorrect) {
-            pointsAwarded = 10; // +1Base points
-            if (currentAttemptCount === 1) {
-                pointsAwarded += 5;
-            }
+            pointsAwarded = question.points || 10;
 
             // Atomically update user score
             await User.findByIdAndUpdate(userId, {
@@ -98,7 +90,7 @@ const isCorrect = Math.abs(numericAnswer - question.correctAnswer) <= tolerance;
             questionId,
             submittedAnswer: numericAnswer,
             isCorrect,
-            attemptNumber: currentAttemptCount, // always ≥ 1 now
+            attemptNumber: currentAttemptCount,
             pointsAwarded
         });
 
@@ -133,7 +125,6 @@ const isCorrect = Math.abs(numericAnswer - question.correctAnswer) <= tolerance;
         res.status(500).json({ message: 'Server error during submission' });
     }
 });
-
 
 // Get user's attempt history for a question
 router.get('/attempts/:questionId', auth, async (req, res) => {
