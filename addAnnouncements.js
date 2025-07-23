@@ -18,13 +18,17 @@ mongoose.connect(process.env.MONGODB_URI, {
 async function addAnnouncement() {
   try {
     // Replace these values manually
-    const announcementData = {
-      title: 'Discord Link',
-      content: 'The Discord Link is working, previously it had got expired.',
-      type: 'correction', // 'general', 'correction', or 'urgent'
-      isActive: true,
-      authorId: '68681972cfb47a715782b158' // ⚠️ Replace with a valid ObjectId from your User collection
-    };
+ const announcementData = {
+  title: '📚 Quizzicles Exam Study Material',
+  content: '👉 https://drive.google.com/drive/folders/1nvunXoa77ufJ-mZ-ZzUaFr-0sX1w-NMw 👈  Keep checking—updates may be added anytime.',
+  type: 'urgent',
+  isActive: true,
+  authorId: '68681972cfb47a715782b158'
+};
+
+
+
+
 
     const newAnnouncement = new Announcement(announcementData);
     await newAnnouncement.save();
