@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
         const users = await User.find({ isActive: true })
             .select('username fullName category score lastActivity') // Changed teamName to fullName, added category
             .sort({ score: -1, lastActivity: 1 })
-            .limit(100);
+            .limit(105);
 
         const leaderboard = users.map((user, index) => ({
             rank: index + 1,
