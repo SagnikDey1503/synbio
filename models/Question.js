@@ -6,7 +6,7 @@ const questionSchema = new mongoose.Schema({
         required: true,
         unique: true,
         min: 1,
-        max: 45
+        max: 43
     },
     correctAnswer: {
         type: Number,

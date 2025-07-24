@@ -10,7 +10,7 @@ const submissionSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1,
-        max: 45
+        max: 43
     },
     submittedAnswer: {
         type: Number,

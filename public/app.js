@@ -216,7 +216,7 @@ class QuizziclesApp {
 
         container.innerHTML = '';
 
-        for (let i = 1; i <= 45; i++) {
+        for (let i = 1; i <= 43; i++) {
             const questionData = this.questions.find(q => q.id === i) || { id: i, maxAttempts: 1 };
             const questionCard = this.createQuestionCard(questionData);
             container.appendChild(questionCard);
