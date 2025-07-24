@@ -4,7 +4,7 @@ const secret = 'hello123'; // store this securely
 const token = jwt.sign(
   { role: 'admin' },
   secret,
-  { expiresIn: '10m' } // valid for 10 minutes
+  { expiresIn: '40m' } // valid for 40 minutes
 );
 
 console.log("Secure access link:");
