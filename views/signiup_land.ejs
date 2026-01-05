@@ -4,64 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quizzicles Contest Portal</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/style1.css" />
 </head>
+
 <body>
   <div id="signup-page" class="page">
     <div class="login-container">
       <div class="login-card">
+
         <div class="logo-section">
-          <div class="logo">
-            <i class="fas fa-brain"></i>
-          </div>
-          <h1>Quizzicles</h1>
-          <p>Sign Up</p>
+         <div class="logo bio-logo">
+  <i class="fas fa-dna"></i>
+</div>
+
+          <h1>SynBio Conference</h1>
+          <h2 id="insti">IITB x IITKGP</h2>
+          <p>Register here</p>
         </div>
+
         <form id="signup-form" class="login-form" method="POST" action="/signup">
-          <div class="form-group">
-            <label for="signup-username">Username</label>
-            <div class="input-wrapper">
-              <i class="fas fa-user"></i>
-              <input type="text" id="signup-username" name="username" value="<%= typeof username !== 'undefined' ? username : '' %>" required />
-            </div>
-          </div>
 
-          <!-- 📧 Email Field -->
-          <div class="form-group">
-            <label for="signup-email">Email</label>
-            <div class="input-wrapper">
-              <i class="fas fa-envelope"></i>
-              <input type="email" id="signup-email" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="signup-password">Password</label>
-            <div class="input-wrapper">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="signup-password" name="password" placeholder="Enter at least 6 characters" required />
-            </div>
-          </div>
-
+          <!-- 👤 Full Name -->
           <div class="form-group">
             <label for="signup-fullname">Full Name</label>
             <div class="input-wrapper">
               <i class="fas fa-user"></i>
-              <input type="text" id="signup-fullname" name="fullName" value="<%= typeof fullName !== 'undefined' ? fullName : '' %>" required />
+              <input
+                type="text"
+                id="signup-fullname"
+                name="fullName"
+                value="<%= typeof fullName !== 'undefined' ? fullName : '' %>"
+                required
+              />
             </div>
           </div>
 
+          <!-- 📧 Email -->
           <div class="form-group">
-            <label for="signup-category">Category</label>
+            <label for="signup-email">Email</label>
             <div class="input-wrapper">
-              <i class="fas fa-users"></i>
-              <select id="signup-category" name="category" required>
-                <option value="">Select your category</option>
-                <option value="Junior">Junior</option>
-                <option value="Senior">Senior</option>
-              </select>
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="signup-email"
+                name="email"
+                value="<%= typeof email !== 'undefined' ? email : '' %>"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- 📞 Phone Number -->
+          <div class="form-group">
+            <label for="signup-phone">Phone Number</label>
+            <div class="input-wrapper">
+              <i class="fas fa-phone"></i>
+              <input
+                type="tel"
+                id="signup-phone"
+                name="phoneNumber"
+                pattern="[6-9]{1}[0-9]{9}"
+                placeholder="10-digit mobile number"
+                value="<%= typeof phoneNumber !== 'undefined' ? phoneNumber : '' %>"
+                required
+              />
             </div>
           </div>
 
@@ -70,94 +79,41 @@
             <i class="fas fa-user-plus"></i>
           </button>
         </form>
-<div style="text-align: center; margin-top: 1rem;">
-  <a href="/forgot-password" style="color: #007bff; text-decoration: none; font-weight: 500;">
-    <i class="fas fa-key"></i> Forgot Password?
-  </a>
-</div>
-        <div style="margin-top: 1rem; text-align: center;">
-          <a href="/login" id="goto-login-link" class="exam-portal-link"
-             style="
-              display: inline-block;
-              padding: 0.6rem 1.2rem;
-              background-color: #4CAF50;
-              color: white;
-              border-radius: 8px;
-              text-decoration: none;
-              font-weight: 500;
-              transition: all 0.3s ease;
-             ">
-            <i class="fas fa-arrow-right-to-bracket" style="margin-right: 8px;"></i>
-            Go to Exam Portal
-          </a>
-        </div>
 
         <% if (error) { %>
-          <div id="signup-error" class="error-message" style="color:red; margin-top: 10px;"><%= error %></div>
+          <div class="error-message" style="color:red; margin-top: 10px;">
+            <%= error %>
+          </div>
         <% } %>
 
         <% if (success) { %>
-          <div id="signup-success" class="success-message" style="color:green; margin-top: 10px;">
-            <%= success %><br>
-            Redirecting to exam portal in <span id="countdown">5</span> seconds...
+          <div class="success-message" style="color:green; margin-top: 10px;">
+            <%= success %>
           </div>
-          <script>
-            let seconds = 5;
-            const countdown = document.getElementById('countdown');
-            const interval = setInterval(function() {
-              seconds--;
-              countdown.textContent = seconds;
-              if (seconds <= 0) {
-                clearInterval(interval);
-                window.location.href = '/login';
-              }
-            }, 1000);
-          </script>
         <% } %>
 
+        <!-- WhatsApp -->
         <div style="margin-top: 1rem; text-align: center;">
-          <a 
-            href="https://chat.whatsapp.com/DzfdxIdonrzJh1mtU5BagK" 
-            target="_blank" 
-            class="whatsapp-link"
-            style="color: #25D366; font-weight: 500; text-decoration: none; display: inline-block; margin-top: 5px;">
+          <a
+            href="https://chat.whatsapp.com/DzfdxIdonrzJh1mtU5BagK"
+            target="_blank"
+            style="color: #25D366; font-weight: 500; text-decoration: none;"
+          >
             <i class="fab fa-whatsapp"></i> Contact us on WhatsApp
           </a>
-
-          <style>
-            .whatsapp-link:hover {
-              color: #1ebe57;
-              text-decoration: underline;
-              transform: scale(1.03);
-              transition: all 0.2s ease;
-            }
-          </style>
-
-          <div class="external-links" style="margin-bottom: 1rem; margin-top: 0.5rem; text-align: center;">
-            <a href="https://discord.gg/rGxtVHBnhf" target="_blank" class="external-link discord-link" 
-               style="text-decoration: none; color: #5865F2; font-weight: 500;">
-              <i class="fab fa-discord"></i>
-              <span>Join our Discord</span>
-            </a>
-          </div>
-
-          <style>
-            .discord-link:hover {
-              color: #4854d4;
-              text-decoration: underline;
-              transition: color 0.3s ease, text-decoration 0.3s ease;
-            }
-          </style>
         </div>
 
-        <style>
-          .exam-portal-link:hover {
-            background-color: #45a049;
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
-            text-decoration: none;
-          }
-        </style>
+        <!-- Instagram -->
+        <div class="external-links" style="margin-top: 0.8rem; text-align: center;">
+          <a
+            href="https://www.instagram.com/quizzicles"
+            target="_blank"
+            style="text-decoration: none; color: #E1306C; font-weight: 500;"
+          >
+            <i class="fab fa-instagram"></i> Follow us on Instagram
+          </a>
+        </div>
+
       </div>
     </div>
   </div>
