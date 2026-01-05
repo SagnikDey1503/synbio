@@ -1,4 +1,5 @@
 
+
 :root {
   /* Colors */
   --color-background: rgba(252, 252, 249, 1);
@@ -746,28 +747,8 @@ body {
 
 
 /* Hero Section */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
-  color: white;
-  overflow: hidden;
-}
 
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(50, 184, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(255, 69, 0, 0.2) 0%, transparent 50%);
-  animation: float 20s ease-in-out infinite;
-}
+
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -1553,31 +1534,41 @@ padding:10px;
 /* ===== HERO BACKGROUND IMAGE ===== */
 
 .hero {
-  min-height: 100vh;
   position: relative;
+  min-height: 110vh;
   display: flex;
   align-items: center;
-
-  /* 👇 CHANGE THIS PATH TO YOUR IMAGE */
-  background-image: url("/images/bg1.webp");
-
-  background-size: cover;        /* fills screen */
-  background-position: center;   /* centers image */
-  background-repeat: no-repeat;
+  justify-content: center;
+  overflow: hidden; /* Prevents image overlap if it's larger than container */
 }
-.hero::before {
-  content: "";
+
+.hero-bg {
+  /* Position it to fill the parent */
   position: absolute;
-  inset: 0;
-  background: rgba(36, 39, 37, 0.683); /* light overlay */
-  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* The "Magic" property */
+  object-fit: cover; 
+  
+  /* Ensures it stays behind the text */
+  z-index: 0; 
+  
+  /* Optional: adjust focus point (like background-position) */
+  object-position:center center;
 }
 
-/* Keep text above overlay */
-.hero .container {
-  position: relative;
-  z-index: 1;
+.hero-content {
+  color: white;
+  text-align: center;
+  z-index: 1; /* Keeps text above the image */
 }
+.hero-bg {
+  filter: brightness(0.5) contrast(1.0);
+}
+
 #schedule{
    /* background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%); */
 }
