@@ -1559,7 +1559,7 @@ padding:10px;
   align-items: center;
 
   /* 👇 CHANGE THIS PATH TO YOUR IMAGE */
-  background-image: url("/images/bg1.png");
+  background-image: url("/images/bg1.webp");
 
   background-size: cover;        /* fills screen */
   background-position: center;   /* centers image */
