@@ -1401,12 +1401,16 @@ padding:10px;
   position: fixed;
   top: 0;
   width: 100%;
-  background: #ffffff;
-  backdrop-filter: blur(10px);
+
+  background: rgba(4, 14, 26, 0.6); /* translucency */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* Safari support */
+
   z-index: 1000;
-  border-bottom: 1px solid var(--color-border);
-  transition: all var(--duration-normal) var(--ease-standard);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
 }
+
 
 .navbar.scrolled {
   box-shadow: var(--shadow-md);
@@ -1451,7 +1455,7 @@ padding:10px;
 .nav-link {
   font-size: 1.3rem;
   font-weight: var(--font-weight-medium);
-  color: var(--color-primary);
+  color: white;
   position: relative;
   text-decoration: none;
 }
@@ -1491,7 +1495,7 @@ padding:10px;
 }
 
 .nav-logo-img1 {
-  height: 50px;
+  height: 140px;
   object-fit: contain;
   transition: transform 0.2s ease;
 }
