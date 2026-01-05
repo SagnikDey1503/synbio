@@ -1402,9 +1402,9 @@ padding:10px;
   top: 0;
   width: 100%;
 
-  background: rgba(4, 14, 26, 0.6); /* translucency */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px); /* Safari support */
+  background: rgba(4, 14, 26, 0.08); /* translucency */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
 
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -1559,7 +1559,7 @@ padding:10px;
   align-items: center;
 
   /* 👇 CHANGE THIS PATH TO YOUR IMAGE */
-  background-image: url("/images/hero-bg.png");
+  background-image: url("/images/bg1.png");
 
   background-size: cover;        /* fills screen */
   background-position: center;   /* centers image */
@@ -1569,7 +1569,7 @@ padding:10px;
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(36, 39, 37, 0.533); /* light overlay */
+  background: rgba(36, 39, 37, 0.683); /* light overlay */
   z-index: 0;
 }
 
