@@ -362,14 +362,20 @@ pre code {
 }
 
 .btn--outline {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
+  background: rgba(10, 20, 40, 0.389); /* dark navy, translucent */
+  backdrop-filter: blur(0px);       /* glass effect (optional) */
+  -webkit-backdrop-filter: blur(0px);
+  
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e6eaf2;                    /* soft light text */
 }
 
+
 .btn--outline:hover {
-  background: var(--color-secondary);
+  background: rgba(10, 20, 40, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
 }
+
 
 .btn--sm {
   padding: var(--space-4) var(--space-12);
@@ -708,7 +714,7 @@ body {
 .bar {
   width: 25px;
   height: 3px;
-  background: var(--color-text);
+  background: red;
   margin: 3px 0;
   transition: 0.3s;
 }
@@ -798,11 +804,19 @@ body {
 }
 
 .hero-description {
-  font-size: var(--font-size-lg);
+  font-family: "Algerian", "Cinzel", "Trajan Pro", serif;
+  font-size: calc(var(--font-size-lg) * 1.8);
+  font-weight: 600;          /* Algeria is already bold by design */
+  letter-spacing: 0.5px;     /* enhances the regal feel */
+  line-height: 1.6;
+
+  color: rgb(230, 235, 245);
   margin-bottom: var(--space-32);
-  opacity: 0.9;
+ text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
   animation: fadeInUp 1s ease-out 0.6s both;
 }
+
+
 
 .hero-buttons {
   display: flex;
@@ -811,6 +825,7 @@ body {
   margin-bottom: var(--space-32);
   animation: fadeInUp 1s ease-out 0.9s both;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .hero-stats {
@@ -825,15 +840,17 @@ body {
   text-align: center;
 }
 
+
+/* 
 .stat-number {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   color: #FFD700;
   margin-bottom: var(--space-8);
-}
+} */
 
 .stat-label {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-2xl);
   opacity: 0.8;
 }
 
@@ -1498,7 +1515,7 @@ padding:10px;
 .bar {
   width: 24px;
   height: 3px;
-  background: var(--color-primary);
+  background: rgba(255, 255, 255, 0.835);
   transition: 0.3s;
 }
 
@@ -1535,7 +1552,7 @@ padding:10px;
 
 .hero {
   position: relative;
-  min-height: 110vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
