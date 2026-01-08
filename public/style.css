@@ -772,6 +772,7 @@ body {
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-24);
   animation: fadeInUp 1s ease-out;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .hero-title .letter {
@@ -804,9 +805,9 @@ body {
 }
 
 .hero-description {
-  font-family: "Algerian", "Cinzel", "Trajan Pro", serif;
-  font-size: calc(var(--font-size-lg) * 1.8);
-  font-weight: 600;          /* Algeria is already bold by design */
+  font-family:  "Trajan Pro", serif;
+  font-size: calc(var(--font-size-lg) * 1.5);
+  font-weight: 400;          /* Algeria is already bold by design */
   letter-spacing: 0.5px;     /* enhances the regal feel */
   line-height: 1.6;
 
@@ -1483,9 +1484,11 @@ padding:10px;
 }
 
 .nav-logo-img {
-  height: 63px;
+  height: 68px;
   object-fit: contain;
   transition: transform 0.2s ease;
+
+  filter: brightness(1.5) contrast(1.1);
 }
 
 .nav-logo-img:hover {
