@@ -1508,3 +1508,11 @@ padding:10px;
 #schedule{
    /* background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%); */
 }
+
+@media (max-width: 300px) {
+  .hero-content{
+ 
+    margin-top: 40px;
+  }
+  
+}
