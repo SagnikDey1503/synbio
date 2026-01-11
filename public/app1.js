@@ -490,4 +490,4 @@ rippleStyle.textContent = `
 `;
 document.head.appendChild(rippleStyle);
 
-console.log('QUIZZICLES website loaded successfully! 🎉');
+console.log(' website loaded successfully! ');
