@@ -706,7 +706,11 @@ body {
   margin-bottom: var(--space-16);
   animation: fadeInUp 1s ease-out 0.3s both;
 }
-
+.hero-subtitle1 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-16);
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
 .hero-description {
   font-family:  "Trajan Pro", serif;
   font-size: calc(var(--font-size-lg) * 2.2);
