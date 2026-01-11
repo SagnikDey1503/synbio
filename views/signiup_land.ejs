@@ -16,12 +16,10 @@
       <div class="login-card">
 
         <div class="logo-section">
-         <div class="logo bio-logo">
-  <i class="fas fa-dna"></i>
+        <div class="event-logo">
+  <img src="images/logo.png" alt="SYNBIOCON Logo" />
 </div>
 
-          <h1>SYNBIOCON 2026</h1>
-          <h2 id="insti">IITB x IITKGP</h2>
           <p>Register here</p>
         </div>
 
@@ -73,6 +71,62 @@
               />
             </div>
           </div>
+<!-- 🏫 Institute -->
+<div class="form-group">
+  <label for="signup-institute">Institute</label>
+  <div class="input-wrapper">
+    <i class="fas fa-university"></i>
+    <input
+      type="text"
+      id="signup-institute"
+      name="institute"
+      value="<%= typeof institute !== 'undefined' ? institute : '' %>"
+      required
+    />
+  </div>
+</div>
+
+<!-- 🎓 Degree -->
+<div class="form-group">
+  <label for="signup-degree">Degree</label>
+  <div class="input-wrapper">
+    <i class="fas fa-graduation-cap"></i>
+    <select
+      id="signup-degree"
+      name="degree"
+      required
+    >
+      <option value="">Select your degree</option>
+      <option value="BTech" <%= degree === 'BTech' ? 'selected' : '' %>>B.Tech</option>
+      <option value="MTech" <%= degree === 'MTech' ? 'selected' : '' %>>M.Tech</option>
+      <option value="BS" <%= degree === 'BS' ? 'selected' : '' %>>BS</option>
+      <option value="MS" <%= degree === 'MS' ? 'selected' : '' %>>MS</option>
+      <option value="PhD" <%= degree === 'PhD' ? 'selected' : '' %>>PhD</option>
+      <option value="Other" <%= degree === 'Other' ? 'selected' : '' %>>Other</option>
+    </select>
+  </div>
+</div>
+
+<!-- 💡 What do you expect (Optional) -->
+<div class="form-group">
+  <label for="signup-expectations" class="label-inline">
+  <span>What do you expect from SYNBIOCON? </span>
+  <span class="optional-tag">(Optional)</span>
+</label>
+
+  <div class="input-wrapper">
+    <i class="fas fa-lightbulb"></i>
+    <input
+  type="text"
+  id="signup-expectations"
+  name="expectations"
+  class="optional-textarea"
+  value="<%= typeof expectations !== 'undefined' ? expectations : '' %>"
+/>
+
+
+  </div>
+</div>
 
           <button type="submit" class="login-btn">
             <span>Register</span>

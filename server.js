@@ -62,49 +62,88 @@ app.get('/', async (req, res) => {
 
 // Signup page
 app.get('/signup', (req, res) => {
-  res.render('signiup_land', { error: null, success: null });
+  res.render('signiup_land', {
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    institute: '',
+    degree: '',
+    expectations: '',
+    error: null,
+    success: null
+  });
 });
+
 
 // Signup submit
 app.post('/signup', async (req, res) => {
-  const { email, fullName, phoneNumber } = req.body;
+  const {
+    email,
+    fullName,
+    phoneNumber,
+    institute,
+    degree,
+    expectations
+  } = req.body;
 
   try {
-    if (!email || !fullName || !phoneNumber) {
+    // 🔒 Required field check
+    if (!email || !fullName || !phoneNumber || !institute || !degree) {
       return res.render('signiup_land', {
-        error: 'All fields are required.',
-        success: null
+        error: 'Please fill all required fields.',
+        success: null,
+        ...req.body
       });
     }
 
+    // 🔁 Duplicate check
     const existingUser = await User.findOne({
       $or: [{ email }, { phoneNumber }]
     });
 
     if (existingUser) {
       return res.render('signiup_land', {
-        error: existingUser.email === email
-          ? 'Email already registered.'
-          : 'Phone number already registered.',
-        success: null
+        error:
+          existingUser.email === email
+            ? 'Email already registered.'
+            : 'Phone number already registered.',
+        success: null,
+        ...req.body
       });
     }
 
-    await new User({ email, fullName, phoneNumber }).save();
+    // 💾 Save user
+    await new User({
+      email,
+      fullName,
+      phoneNumber,
+      institute,
+      degree,
+      expectations
+    }).save();
 
+    // ✅ Success response (clear form)
     res.render('signiup_land', {
       error: null,
-      success: 'Registered successfully!'
+      success: 'Registered successfully!',
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      institute: '',
+      degree: '',
+      expectations: ''
     });
 
   } catch (err) {
     console.error(err);
     res.render('signiup_land', {
-      error: 'Something went wrong.',
-      success: null
+      error: 'Something went wrong. Please try again.',
+      success: null,
+      ...req.body
     });
   }
 });
+
 
 // Query form
 app.post('/query', async (req, res) => {

@@ -1,46 +1,80 @@
 const mongoose = require('mongoose');
 const sanitizeHtml = require('sanitize-html');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+{
+    fullName: {
+        type: String,
+        required: [true, 'Full name is required'],
+        trim: true,
+        maxlength: 50,
+        match: [/^[a-zA-Z\s]+$/, 'Full name can contain only letters and spaces']
+    },
+
     email: {
         type: String,
-        required: true,
+        required: [true, 'Email is required'],
         unique: true,
         trim: true,
         lowercase: true,
         match: [/.+\@.+\..+/, 'Please enter a valid email address']
     },
 
-    fullName: {
-        type: String,
-        required: true,
-        trim: true,
-        maxlength: 50,
-        match: [/^[a-zA-Z\s]+$/, 'Full name can only contain letters and spaces']
-    },
-
     phoneNumber: {
         type: String,
-        required: true,
+        required: [true, 'Phone number is required'],
         unique: true,
         trim: true,
         match: [/^[6-9]\d{9}$/, 'Please enter a valid 10-digit phone number']
+    },
+
+    institute: {
+        type: String,
+        required: [true, 'Institute name is required'],
+        trim: true,
+        maxlength: 100
+    },
+
+    degree: {
+        type: String,
+        required: [true, 'Degree is required'],
+        enum: {
+            values: ['BTech', 'MTech', 'BS', 'MS', 'PhD', 'Other'],
+            message: 'Invalid degree selection'
+        }
+    },
+
+    expectations: {
+        type: String,
+        trim: true,
+        maxlength: 500,
+        default: ''
     }
-}, {
-    timestamps: true // adds createdAt & updatedAt
+},
+{
+    timestamps: true
 });
 
-// ✅ Sanitize inputs
+/* 🔒 Sanitize all user inputs */
 userSchema.pre('save', function (next) {
-    if (this.isModified('email')) {
-        this.email = sanitizeHtml(this.email, { allowedTags: [], allowedAttributes: {} });
-    }
-    if (this.isModified('fullName')) {
-        this.fullName = sanitizeHtml(this.fullName, { allowedTags: [], allowedAttributes: {} });
-    }
-    if (this.isModified('phoneNumber')) {
-        this.phoneNumber = sanitizeHtml(this.phoneNumber, { allowedTags: [], allowedAttributes: {} });
-    }
+    const fieldsToSanitize = [
+        'fullName',
+        'email',
+        'phoneNumber',
+        'institute',
+        'degree',
+        'expectations'
+    ];
+
+    fieldsToSanitize.forEach(field => {
+        if (this.isModified(field) && this[field]) {
+            this[field] = sanitizeHtml(this[field], {
+                allowedTags: [],
+                allowedAttributes: {}
+            });
+        }
+    });
+
     next();
 });
 
