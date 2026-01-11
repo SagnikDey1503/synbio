@@ -223,6 +223,7 @@ textarea {
 
 .logo-section p {
   color: #8ADDB5; /* Register here color */
+  font-size: larger;
 }
 /* =========================
    EVENT LOGO IMAGE
@@ -234,7 +235,7 @@ textarea {
   align-items: center;
   margin-bottom: 1rem;
  margin-top: -70px;
- margin-bottom: -60px;
+ margin-bottom: -80px;
 }
 
 .event-logo img {
@@ -255,3 +256,41 @@ textarea {
     max-width: 300px;
   }
 }
+.external-links {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.ig-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #E1306C; /* Instagram pink */
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+/* Remove color change on hover, click, focus */
+.ig-link:hover,
+.ig-link:active,
+.ig-link:focus,
+.ig-link:visited {
+  color: #E1306C;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Mobile view */
+@media (max-width: 480px) {
+  .external-links {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}
+
