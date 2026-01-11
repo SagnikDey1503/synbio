@@ -806,7 +806,7 @@ body {
 
 .hero-description {
   font-family:  "Trajan Pro", serif;
-  font-size: calc(var(--font-size-lg) * 1.5);
+  font-size: calc(var(--font-size-lg) * 2.2);
   font-weight: 400;          /* Algeria is already bold by design */
   letter-spacing: 0.5px;     /* enhances the regal feel */
   line-height: 1.6;
@@ -1419,7 +1419,8 @@ padding:10px;
 .nav-container {
   display: flex;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0;
+  padding-right: 2rem;
   height: 72px;
   max-width: 1400px;
   margin: 0 auto;
@@ -1447,7 +1448,8 @@ padding:10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
+
 }
 
 /* ================= LINKS ================= */
@@ -1496,15 +1498,26 @@ padding:10px;
 }
 
 .nav-logo-img1 {
-  height: 140px;
+  height: 160px;
   object-fit: contain;
   transition: transform 0.2s ease;
+   filter: brightness(1.2) contrast(1.1);
 }
 
 .nav-logo-img1:hover {
   transform: scale(1.05);
 }
+.nav-logo-img2 { 
+  height: 150px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  padding-top: 10px;
 
+}
+
+.nav-logo-img2:hover {
+ filter: brightness(1.2) contrast(1.1);
+}
 
 /* Hamburger */
 .hamburger {
