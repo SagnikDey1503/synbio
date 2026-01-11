@@ -28,14 +28,14 @@ body::before {
   background:
     linear-gradient(
       135deg,
-      rgba(15, 32, 39, 0.9),
+      rgba(15, 32, 39, 0.674),
       rgba(32, 58, 67, 0.85),
       rgba(44, 83, 100, 0.85)
     ),
     url("bg.png");
   background-size: cover;
   background-position: center;
-  filter: blur(2px);
+  filter: blur(0px);
   z-index: -2;
 }
 
