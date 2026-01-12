@@ -57,7 +57,7 @@ body::before {
 .login-card {
   background: rgba(17, 24, 39, 0.612);
   backdrop-filter: blur(18px) saturate(140%);
-  border: 0px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   width: 100%;
   max-width: 380px;
   padding: 2.4rem 2rem;
