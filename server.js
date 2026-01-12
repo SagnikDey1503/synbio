@@ -196,7 +196,7 @@ app.post('/signup', async (req, res) => {
     // ✅ Success response (clear form)
     res.render('signiup_land', {
       error: null,
-      success: 'Registered successfully! Check your email for details.',
+      success: 'Registered successfully!',
       fullName: '',
       email: '',
       phoneNumber: '',
