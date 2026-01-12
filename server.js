@@ -204,46 +204,46 @@ app.post('/signup', async (req, res) => {
       degree: '',
       expectations: ''
     });
-    await sendMail(
-  email,
-  ' SynBioCon 2026 Registration Successful',
-  `
-    <h2>Hello ${fullName},</h2>
+//     await sendMail(
+//   email,
+//   ' SynBioCon 2026 Registration Successful',
+//   `
+//     <h2>Hello ${fullName},</h2>
 
-    <p>✅ Your registration for <b>SynBioCon 2026</b> has been successfully confirmed.</p>
+//     <p>✅ Your registration for <b>SynBioCon 2026</b> has been successfully confirmed.</p>
 
-    <p> The conference will be held on <b>7–8 March 2026</b>.</p>
+//     <p> The conference will be held on <b>7–8 March 2026</b>.</p>
 
-    <p><strong>Details you submitted:</strong></p>
-    <ul>
-      <li><b>Institute:</b> ${institute}</li>
-      <li><b>Degree:</b> ${degree}</li>
-      <li><b>Phone:</b> ${phoneNumber}</li>
-    </ul>
+//     <p><strong>Details you submitted:</strong></p>
+//     <ul>
+//       <li><b>Institute:</b> ${institute}</li>
+//       <li><b>Degree:</b> ${degree}</li>
+//       <li><b>Phone:</b> ${phoneNumber}</li>
+//     </ul>
 
-    <p>
-      📢 Updates will be shared via <b>email</b> and the official
-      <b>WhatsApp group</b>.
-    </p>
+//     <p>
+//       📢 Updates will be shared via <b>email</b> and the official
+//       <b>WhatsApp group</b>.
+//     </p>
 
-    <p>
-      👉 Please join the WhatsApp group:<br/>
-      <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">Join WhatsApp Group</a>
-    </p>
+//     <p>
+//       👉 Please join the WhatsApp group:<br/>
+//       <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">Join WhatsApp Group</a>
+//     </p>
 
-    <p>
-      The <b>detailed conference schedule</b> is attached with this email
-      as a PDF.
-    </p>
+//     <p>
+//       The <b>detailed conference schedule</b> is attached with this email
+//       as a PDF.
+//     </p>
 
-    <br/>
-    <p>
-      Regards,<br/>
-      <b>SynBioCon Organizing Team</b>
-    </p>
-  `,
-  path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
-);
+//     <br/>
+//     <p>
+//       Regards,<br/>
+//       <b>SynBioCon Organizing Team</b>
+//     </p>
+//   `,
+//   path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
+// );
   } catch (err) {
     console.error(err);
 
