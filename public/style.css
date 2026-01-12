@@ -1506,7 +1506,7 @@ padding:10px;
   z-index: 1; /* Keeps text above the image */
 }
 .hero-bg {
-  filter: brightness(0.3) contrast(1.0) blur(2px);
+  filter: brightness(0.5) contrast(1.0) blur(2px);
 
 }
 @media (max-width: 2000px) {
