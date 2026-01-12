@@ -10,6 +10,7 @@
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
+
 <!-- .response-box {
   padding: 12px 16px;
   border-radius: 8px;
@@ -178,27 +179,18 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-      <img src="/images/bg1.webp" alt="Hero Background" class="hero-bg">
+      <img src="/images/test.png" alt="Hero Background" class="hero-bg">
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title" id="hero-title">
-                    <!-- <span class="letter q">S</span>
-                    <span class="letter u"Y</span>
-                    <span class="letter i"></span>
-                    <span class="letter z1">Z</span>
-                    <span class="letter z2">Z</span>
-                    <span class="letter i2">I</span>
-                    <span class="letter c">C</span>
-                    <span class="letter l">L</span>
-                    <span class="letter e">E</span>
-                    <span class="letter s">S</span> -->
                     SYNBIOCON
                 </h1>
-                <p class="hero-description">
-       Designing life, one cell at a time, shaping the future of biology
-      </p>
+               <p class="hero-description" >
+  Designing life, one cell at a time, shaping the future of biology
+</p>
+
                <p class="hero-subtitle">An IIT Bombay x IIT Kharagpur initiated Pan-India Synthetic Biology Conference </p>
-      <p class="hero-subtitle1">7-8 March 2026 | Microsoft teams</p>
+      <p class="hero-subtitle1">7th-8th March 2026 | Microsoft teams</p>
 
               <div class="hero-buttons">
         <button class="btn btn--outline btn--lg" onclick="location.href='/signup'">
@@ -673,6 +665,18 @@ document.getElementById('contactForm').addEventListener('submit', async function
 });
 </script>
 
+<!-- <script>
+  const textElement = document.getElementById("bioText");
+  const text = textElement.innerText;
+  textElement.innerHTML = "";
+
+  [...text].forEach((char, index) => {
+    const span = document.createElement("span");
+    span.innerText = char === " " ? "\u00A0" : char;
+    span.style.animationDelay = `${index * 0.07}s`;
+    textElement.appendChild(span);
+  });
+</script> -->
 
 
 </body>
