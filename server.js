@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-
+const sendMail = require('./utils/sendMail');
 const User = require('./models/User');
 const Query = require('./models/Query');
 require('dotenv').config();
@@ -26,20 +26,20 @@ app.set('views', path.join(__dirname, 'views'));
 /* =====================
    MongoDB Connection
 ===================== */
-let isConnected = false;
+// let isConnected = false;
 
-async function connectDB() {
-  if (isConnected) return;
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    isConnected = true;
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error('MongoDB error:', err);
-  }
-}
+// async function connectDB() {
+//   if (isConnected) return;
+//   try {
+//     await mongoose.connect(process.env.MONGODB_URI);
+//     isConnected = true;
+//     console.log('MongoDB connected');
+//   } catch (err) {
+//     console.error('MongoDB error:', err);
+//   }
+// }
 
-connectDB();
+// connectDB();
 
 /* =====================
    Routes
@@ -178,6 +178,17 @@ app.post('/signup', async (req, res) => {
         ...req.body
       });
     }
+ // ✅ Success response (clear form)
+    res.render('signiup_land', {
+      error: null,
+      success: 'Registered successfully! Check your email for details.',
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      institute: '',
+      degree: '',
+      expectations: ''
+    });
 
     // 💾 Save user
     await new User({
@@ -232,18 +243,7 @@ app.post('/signup', async (req, res) => {
 );
 
 
-    // ✅ Success response (clear form)
-    res.render('signiup_land', {
-      error: null,
-      success: 'Registered successfully! Check your email for details.',
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      institute: '',
-      degree: '',
-      expectations: ''
-    });
-
+   
   } catch (err) {
     console.error(err);
 
@@ -273,7 +273,7 @@ app.post('/query', async (req, res) => {
   }
 });
 //mailer test route
-const sendMail = require('./utils/sendMail');
+
 
 // app.get('/test-mail', async (req, res) => {
 //   try {
@@ -310,11 +310,38 @@ app.use((req, res) => {
 /* =====================
    Local Development Only
 ===================== */
-if (require.main === module) {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Local server running on http://localhost:${PORT}`);
+// if (require.main === module) {
+//   const PORT = process.env.PORT || 3000;
+//   app.listen(PORT, () => {
+//     console.log(`Local server running on http://localhost:${PORT}`);
+//   });
+// }
+/* =====================
+   MongoDB + Server Start
+===================== */
+
+mongoose.set('bufferCommands', false);
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('MongoDB connected');
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('MongoDB connection failed:', err);
+    process.exit(1);
   });
-}
+
+mongoose.connection.on('disconnected', () => {
+  console.error('❌ MongoDB disconnected');
+});
+
+mongoose.connection.on('reconnected', () => {
+  console.log('🔄 MongoDB reconnected');
+});
 
 module.exports = app;
