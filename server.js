@@ -143,6 +143,118 @@ app.get('/signup', (req, res) => {
 //   }
 // });
 
+// app.post('/signup', async (req, res) => {
+//   const {
+//     email,
+//     fullName,
+//     phoneNumber,
+//     institute,
+//     degree,
+//     expectations
+//   } = req.body;
+
+//   try {
+//     // 🔒 Required field check
+//     if (!email || !fullName || !phoneNumber || !institute || !degree) {
+//       return res.render('signiup_land', {
+//         error: 'Please fill all required fields.',
+//         success: null,
+//         ...req.body
+//       });
+//     }
+
+//     // 🔁 Duplicate check
+//     const existingUser = await User.findOne({
+//       $or: [{ email }, { phoneNumber }]
+//     });
+
+//     if (existingUser) {
+//       return res.render('signiup_land', {
+//         error:
+//           existingUser.email === email
+//             ? 'Email already registered.'
+//             : 'Phone number already registered.',
+//         success: null,
+//         ...req.body
+//       });
+//     }
+
+//     // 💾 Save user
+//     await new User({
+//       email,
+//       fullName,
+//       phoneNumber,
+//       institute,
+//       degree,
+//       expectations
+//     }).save();
+
+//     // 📧 SEND CONFIRMATION EMAIL (Gmail API)
+
+
+
+//     // ✅ Success response (clear form)
+//     res.render('signiup_land', {
+//       error: null,
+//       success: 'Registered successfully!',
+//       fullName: '',
+//       email: '',
+//       phoneNumber: '',
+//       institute: '',
+//       degree: '',
+//       expectations: ''
+//     });
+// //     await sendMail(
+// //   email,
+// //   ' SynBioCon 2026 Registration Successful',
+// //   `
+// //     <h2>Hello ${fullName},</h2>
+
+// //     <p>✅ Your registration for <b>SynBioCon 2026</b> has been successfully confirmed.</p>
+
+// //     <p> The conference will be held on <b>7–8 March 2026</b>.</p>
+
+// //     <p><strong>Details you submitted:</strong></p>
+// //     <ul>
+// //       <li><b>Institute:</b> ${institute}</li>
+// //       <li><b>Degree:</b> ${degree}</li>
+// //       <li><b>Phone:</b> ${phoneNumber}</li>
+// //     </ul>
+
+// //     <p>
+// //       📢 Updates will be shared via <b>email</b> and the official
+// //       <b>WhatsApp group</b>.
+// //     </p>
+
+// //     <p>
+// //       👉 Please join the WhatsApp group:<br/>
+// //       <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">Join WhatsApp Group</a>
+// //     </p>
+
+// //     <p>
+// //       The <b>detailed conference schedule</b> is attached with this email
+// //       as a PDF.
+// //     </p>
+
+// //     <br/>
+// //     <p>
+// //       Regards,<br/>
+// //       <b>SynBioCon Organizing Team</b>
+// //     </p>
+// //   `,
+// //   path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
+// // );
+//   } catch (err) {
+//     console.error(err);
+
+//     res.render('signiup_land', {
+//       error: 'Something went wrong. Please try again.',
+//       success: null,
+//       ...req.body
+//     });
+//   }
+// });
+
 app.post('/signup', async (req, res) => {
   const {
     email,
@@ -189,11 +301,7 @@ app.post('/signup', async (req, res) => {
       expectations
     }).save();
 
-    // 📧 SEND CONFIRMATION EMAIL (Gmail API)
-
-
-
-    // ✅ Success response (clear form)
+    // ✅ Respond immediately (NO waiting for email)
     res.render('signiup_land', {
       error: null,
       success: 'Registered successfully!',
@@ -204,49 +312,39 @@ app.post('/signup', async (req, res) => {
       degree: '',
       expectations: ''
     });
-//     await sendMail(
-//   email,
-//   ' SynBioCon 2026 Registration Successful',
-//   `
-//     <h2>Hello ${fullName},</h2>
 
-//     <p>✅ Your registration for <b>SynBioCon 2026</b> has been successfully confirmed.</p>
+    // 📧 Send email in background (non-blocking)
+    setImmediate(async () => {
+      try {
+        await sendMail(
+          email,
+          'SynBioCon 2026 Registration Successful',
+          `
+            <h2>Hello ${fullName},</h2>
+            <p>✅ Your registration for <b>SynBioCon 2026</b> is confirmed.</p>
 
-//     <p> The conference will be held on <b>7–8 March 2026</b>.</p>
+            <ul>
+              <li><b>Institute:</b> ${institute}</li>
+              <li><b>Degree:</b> ${degree}</li>
+              <li><b>Phone:</b> ${phoneNumber}</li>
+            </ul>
 
-//     <p><strong>Details you submitted:</strong></p>
-//     <ul>
-//       <li><b>Institute:</b> ${institute}</li>
-//       <li><b>Degree:</b> ${degree}</li>
-//       <li><b>Phone:</b> ${phoneNumber}</li>
-//     </ul>
+            <p>
+              👉 <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">
+              Join WhatsApp Group</a>
+            </p>
 
-//     <p>
-//       📢 Updates will be shared via <b>email</b> and the official
-//       <b>WhatsApp group</b>.
-//     </p>
+            <p>Regards,<br/><b>SynBioCon Team</b></p>
+          `,
+          path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
+        );
+      } catch (mailErr) {
+        console.error('Email failed:', mailErr.message);
+      }
+    });
 
-//     <p>
-//       👉 Please join the WhatsApp group:<br/>
-//       <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">Join WhatsApp Group</a>
-//     </p>
-
-//     <p>
-//       The <b>detailed conference schedule</b> is attached with this email
-//       as a PDF.
-//     </p>
-
-//     <br/>
-//     <p>
-//       Regards,<br/>
-//       <b>SynBioCon Organizing Team</b>
-//     </p>
-//   `,
-//   path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
-// );
   } catch (err) {
     console.error(err);
-
     res.render('signiup_land', {
       error: 'Something went wrong. Please try again.',
       success: null,
