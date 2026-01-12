@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: [true, 'Degree is required'],
         enum: {
-            values: ['BTech', 'MTech', 'BS', 'MS', 'PhD', 'Other'],
+            values: ['School', 'BTech', 'MTech', 'BS', 'MS', 'PhD', 'Postdoc','Other'],
             message: 'Invalid degree selection'
         }
     },

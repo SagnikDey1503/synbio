@@ -5,7 +5,6 @@ const path = require('path');
 
 const User = require('./models/User');
 const Query = require('./models/Query');
-
 require('dotenv').config();
 
 const app = express();
@@ -76,6 +75,74 @@ app.get('/signup', (req, res) => {
 
 
 // Signup submit
+// app.post('/signup', async (req, res) => {
+//   const {
+//     email,
+//     fullName,
+//     phoneNumber,
+//     institute,
+//     degree,
+//     expectations
+//   } = req.body;
+
+//   try {
+//     // 🔒 Required field check
+//     if (!email || !fullName || !phoneNumber || !institute || !degree) {
+//       return res.render('signiup_land', {
+//         error: 'Please fill all required fields.',
+//         success: null,
+//         ...req.body
+//       });
+//     }
+
+//     // 🔁 Duplicate check
+//     const existingUser = await User.findOne({
+//       $or: [{ email }, { phoneNumber }]
+//     });
+
+//     if (existingUser) {
+//       return res.render('signiup_land', {
+//         error:
+//           existingUser.email === email
+//             ? 'Email already registered.'
+//             : 'Phone number already registered.',
+//         success: null,
+//         ...req.body
+//       });
+//     }
+
+//     // 💾 Save user
+//     await new User({
+//       email,
+//       fullName,
+//       phoneNumber,
+//       institute,
+//       degree,
+//       expectations
+//     }).save();
+
+//     // ✅ Success response (clear form)
+//     res.render('signiup_land', {
+//       error: null,
+//       success: 'Registered successfully! Check your email for details.',
+//       fullName: '',
+//       email: '',
+//       phoneNumber: '',
+//       institute: '',
+//       degree: '',
+//       expectations: ''
+//     });
+
+//   } catch (err) {
+//     console.error(err);
+//     res.render('signiup_land', {
+//       error: 'Something went wrong. Please try again.',
+//       success: null,
+//       ...req.body
+//     });
+//   }
+// });
+
 app.post('/signup', async (req, res) => {
   const {
     email,
@@ -122,10 +189,53 @@ app.post('/signup', async (req, res) => {
       expectations
     }).save();
 
+    // 📧 SEND CONFIRMATION EMAIL (Gmail API)
+    await sendMail(
+  email,
+  ' SynBioCon 2026 Registration Successful',
+  `
+    <h2>Hello ${fullName},</h2>
+
+    <p>✅ Your registration for <b>SynBioCon 2026</b> has been successfully confirmed.</p>
+
+    <p> The conference will be held on <b>7–8 March 2026</b>.</p>
+
+    <p><strong>Details you submitted:</strong></p>
+    <ul>
+      <li><b>Institute:</b> ${institute}</li>
+      <li><b>Degree:</b> ${degree}</li>
+      <li><b>Phone:</b> ${phoneNumber}</li>
+    </ul>
+
+    <p>
+      📢 Updates will be shared via <b>email</b> and the official
+      <b>WhatsApp group</b>.
+    </p>
+
+    <p>
+      👉 Please join the WhatsApp group:<br/>
+      <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">Join WhatsApp Group</a>
+    </p>
+
+    <p>
+      The <b>detailed conference schedule</b> is attached with this email
+      as a PDF.
+    </p>
+
+    <br/>
+    <p>
+      Regards,<br/>
+      <b>SynBioCon Organizing Team</b>
+    </p>
+  `,
+  path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
+);
+
+
     // ✅ Success response (clear form)
     res.render('signiup_land', {
       error: null,
-      success: 'Registered successfully!',
+      success: 'Registered successfully! Check your email for details.',
       fullName: '',
       email: '',
       phoneNumber: '',
@@ -136,6 +246,7 @@ app.post('/signup', async (req, res) => {
 
   } catch (err) {
     console.error(err);
+
     res.render('signiup_land', {
       error: 'Something went wrong. Please try again.',
       success: null,
@@ -143,7 +254,6 @@ app.post('/signup', async (req, res) => {
     });
   }
 });
-
 
 // Query form
 app.post('/query', async (req, res) => {
@@ -162,6 +272,25 @@ app.post('/query', async (req, res) => {
     res.json({ success: false, message: 'Submission failed.' });
   }
 });
+//mailer test route
+const sendMail = require('./utils/sendMail');
+
+// app.get('/test-mail', async (req, res) => {
+//   try {
+//     await sendMail(
+//       process.env.GMAIL_USER,
+//       'FINALLY WORKS 🎉',
+//       '<h2>This email was sent using Gmail API (no SMTP)</h2>'
+//     );
+
+//     res.send('Email sent ✅ Check inbox');
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send(err.message);
+//   }
+// });
+
+
 
 /* =====================
    Error Handling
@@ -174,6 +303,9 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
+// console.log("GMAIL_USER:", process.env.GMAIL_USER);
+// console.log("GMAIL_APP_PASS:", process.env.GMAIL_APP_PASS ? "LOADED ✅" : "MISSING ❌");
+// console.log('REFRESH TOKEN:', process.env.GMAIL_REFRESH_TOKEN ? 'LOADED ✅' : 'MISSING ❌');
 
 /* =====================
    Local Development Only

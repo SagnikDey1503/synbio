@@ -108,11 +108,13 @@
       required
     >
       <option value="">Select your degree</option>
+      <option value="School" <%= degree === 'School' ? 'selected' : '' %>>School</option>
       <option value="BTech" <%= degree === 'BTech' ? 'selected' : '' %>>B.Tech</option>
       <option value="MTech" <%= degree === 'MTech' ? 'selected' : '' %>>M.Tech</option>
       <option value="BS" <%= degree === 'BS' ? 'selected' : '' %>>BS</option>
       <option value="MS" <%= degree === 'MS' ? 'selected' : '' %>>MS</option>
       <option value="PhD" <%= degree === 'PhD' ? 'selected' : '' %>>PhD</option>
+      <option value="Postdoc" <%= degree === 'Postdoc' ? 'selected' : '' %>>Postdoc</option>
       <option value="Other" <%= degree === 'Other' ? 'selected' : '' %>>Other</option>
     </select>
   </div>
