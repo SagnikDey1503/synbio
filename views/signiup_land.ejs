@@ -22,6 +22,17 @@
 
           <p>Register here</p>
         </div>
+ <% if (error) { %>
+          <div class="error-message" style="color:red; margin-top: -10px;margin-bottom: 15px;">
+            <%= error %>
+          </div>
+        <% } %>
+
+        <% if (success) { %>
+          <div class="success-message" style="color:rgb(18, 214, 18); margin-top: -10px;margin-bottom: 15px;">
+            <%= success %>
+          </div>
+        <% } %>
 
         <form id="signup-form" class="login-form" method="POST" action="/signup">
 
@@ -134,18 +145,7 @@
           </button>
         </form>
 
-        <% if (error) { %>
-          <div class="error-message" style="color:red; margin-top: 10px;">
-            <%= error %>
-          </div>
-        <% } %>
-
-        <% if (success) { %>
-          <div class="success-message" style="color:rgb(18, 214, 18); margin-top: 10px;">
-            <%= success %>
-          </div>
-        <% } %>
-
+       
         <!-- WhatsApp -->
         <div style="margin-top: 1rem; text-align: center;">
           <a
