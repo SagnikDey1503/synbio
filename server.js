@@ -299,28 +299,37 @@ app.post('/signup', async (req, res) => {
       expectations: ''
     });
 
-   setImmediate(async () => {
-  try {
-    let html = fs.readFileSync(templatePath, 'utf8');
+//    setImmediate(async () => {
+//   try {
+//     let html = fs.readFileSync(templatePath, 'utf8');
 
-    html = html
-      .replace('{{FULL_NAME}}', fullName)
-      .replace('{{INSTITUTE}}', institute)
-      .replace('{{DEGREE}}', degree)
-      .replace('{{PHONE}}', phoneNumber)
-      .replace('{{DRIVE_LINK}}', DRIVE_LINK)
-      .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
+//     html = html
+//       .replace('{{FULL_NAME}}', fullName)
+//       .replace('{{INSTITUTE}}', institute)
+//       .replace('{{DEGREE}}', degree)
+//       .replace('{{PHONE}}', phoneNumber)
+//       .replace('{{DRIVE_LINK}}', DRIVE_LINK)
+//       .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
 
-    await sendMail(
-      email,
-      'SynBioCon 2026 Registration Successful',
-      html
-    );
+//     await sendMail(
+//       email,
+//       'SynBioCon 2026 Registration Successful',
+//       html
+//     );
 
-  } catch (err) {
-    console.error('Email failed:', err.message);
-  }
-});
+//   } catch (err) {
+//     console.error('Email failed:', err.message);
+//   }
+// });
+try {
+  await sendMail(
+    email,
+    'SynBioCon 2026 Registration Successful',
+    html
+  );
+} catch (err) {
+  console.error('Email failed:', err.message);
+}
 
   } catch (err) {
     console.error(err);
