@@ -22,25 +22,37 @@
 
           <p>Register here</p>
         </div>
- <% if (error === "Something went wrong. Please try again.") { %>
+        
+  <% if (error=="Something went wrong. Please try again.") { %>
   <div class="error-message" style="color:red; margin-top:-10px; margin-bottom:15px;">
     We are facing a technical issue with registration.  
     Please register using our  
-  <a href="https://forms.gle/ntUZHannFxEDgeqTA"
-   target="_blank"
-   style="color:#eb0b0b; text-decoration: underline;">
-  Google Form
-</a>
-
+    <a href="https://forms.gle/ntUZHannFxEDgeqTA"
+       target="_blank"
+       style="color:#eb0b0b; text-decoration: underline;">
+      Google Form
+    </a>
   </div>
+
 <% } else if (error) { %>
+
   <div class="error-message" style="color:red; margin-top:-10px; margin-bottom:15px;">
     <%= error %>
   </div>
+
+<% } else if (success) { %>
+
+  <div class="success-message" style="color:rgb(18, 214, 18); margin-top:-10px; margin-bottom:15px;">
+    Registered successfully! Please join the
+    <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw"
+       target="_blank"
+       style="color:rgb(18, 214, 18); text-decoration: underline;">
+      WhatsApp Group
+    </a> for updates.
+  </div>
+
 <% } %>
-<% if (success) { %> 
-  <div class="success-message" style="color:rgb(18, 214, 18); margin-top: -10px;margin-bottom: 15px;"> <%= success %> 
-  </div> <% } %>
+
 
         <form id="signup-form" class="login-form" method="POST" action="/signup">
 
