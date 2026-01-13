@@ -22,17 +22,25 @@
 
           <p>Register here</p>
         </div>
- <% if (error) { %>
-          <div class="error-message" style="color:red; margin-top: -10px;margin-bottom: 15px;">
-            <%= error %>
-          </div>
-        <% } %>
+ <% if (error === "Something went wrong. Please try again.") { %>
+  <div class="error-message" style="color:red; margin-top:-10px; margin-bottom:15px;">
+    We are facing a technical issue with registration.  
+    Please register using our  
+  <a href="https://forms.gle/ntUZHannFxEDgeqTA"
+   target="_blank"
+   style="color:#eb0b0b; text-decoration: underline;">
+  Google Form
+</a>
 
-        <% if (success) { %>
-          <div class="success-message" style="color:rgb(18, 214, 18); margin-top: -10px;margin-bottom: 15px;">
-            <%= success %>
-          </div>
-        <% } %>
+  </div>
+<% } else if (error) { %>
+  <div class="error-message" style="color:red; margin-top:-10px; margin-bottom:15px;">
+    <%= error %>
+  </div>
+<% } %>
+<% if (success) { %> 
+  <div class="success-message" style="color:rgb(18, 214, 18); margin-top: -10px;margin-bottom: 15px;"> <%= success %> 
+  </div> <% } %>
 
         <form id="signup-form" class="login-form" method="POST" action="/signup">
 

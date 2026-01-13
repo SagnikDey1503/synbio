@@ -304,7 +304,7 @@ app.post('/signup', async (req, res) => {
     // ✅ Respond immediately (NO waiting for email)
     res.render('signiup_land', {
       error: null,
-      success: 'Registered successfully!',
+      success: 'Registered successfully! Check your email for details.',
       fullName: '',
       email: '',
       phoneNumber: '',
