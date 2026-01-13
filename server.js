@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-
+const connectDB = require('./lib/db');
 const User = require('./models/User');
 const Query = require('./models/Query');
 require('dotenv').config();
@@ -23,41 +23,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-/* =====================
-   MongoDB Connection
-===================== */
-let isConnected = false;
 
-async function connectDB() {
-  if (isConnected) return;
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    isConnected = true;
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error('MongoDB error:', err);
-  }
-}
-
-connectDB();
 
 /* =====================
    Routes
 ===================== */
 
 // Home
-app.get('/', async (req, res) => {
-  try {
-    const registrationCount = await User.countDocuments();
-    res.render('index', { registrationCount });
-  } catch (err) {
-    console.error(err);
-    res.render('index', {
-      registrationCount: 100,
-      error: 'Unable to fetch user count'
-    });
-  }
+app.get('/', (req, res) => {
+  res.render('index');
 });
+
 
 // Signup page
 app.get('/signup', (req, res) => {
@@ -256,6 +232,7 @@ app.get('/signup', (req, res) => {
 // });
 
 app.post('/signup', async (req, res) => {
+  await connectDB();
   const {
     email,
     fullName,
@@ -313,35 +290,7 @@ app.post('/signup', async (req, res) => {
       expectations: ''
     });
 
-    // 📧 Send email in background (non-blocking)
-    // setImmediate(async () => {
-    //   try {
-    //     await sendMail(
-    //       email,
-    //       'SynBioCon 2026 Registration Successful',
-    //       `
-    //         <h2>Hello ${fullName},</h2>
-    //         <p>✅ Your registration for <b>SynBioCon 2026</b> is confirmed.</p>
-
-    //         <ul>
-    //           <li><b>Institute:</b> ${institute}</li>
-    //           <li><b>Degree:</b> ${degree}</li>
-    //           <li><b>Phone:</b> ${phoneNumber}</li>
-    //         </ul>
-
-    //         <p>
-    //           👉 <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">
-    //           Join WhatsApp Group</a>
-    //         </p>
-
-    //         <p>Regards,<br/><b>SynBioCon Team</b></p>
-    //       `,
-    //       path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
-    //     );
-    //   } catch (mailErr) {
-    //     console.error('Email failed:', mailErr.message);
-    //   }
-    // });
+   
 
   } catch (err) {
     console.error(err);
@@ -356,6 +305,7 @@ app.post('/signup', async (req, res) => {
 // Query form
 app.post('/query', async (req, res) => {
   try {
+    await connectDB();
     const { name, email, subject, message } = req.body;
 
     if (!name || !email || !subject || !message) {
@@ -371,7 +321,7 @@ app.post('/query', async (req, res) => {
   }
 });
 //mailer test route
-const sendMail = require('./utils/sendMail');
+// const sendMail = require('./utils/sendMail');
 
 // app.get('/test-mail', async (req, res) => {
 //   try {
