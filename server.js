@@ -3,9 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
-const sendMail = require('./utils/sendMail');
+// const sendMail = require('./utils/sendMail');
 const connectDB = require('./lib/db');
 const User = require('./models/User');
 const Query = require('./models/Query');
@@ -321,17 +321,17 @@ app.post('/signup', async (req, res) => {
 //     console.error('Email failed:', err.message);
 //   }
 // });
-const html = fs.readFileSync(templatePath, 'utf8');
+// const html = fs.readFileSync(templatePath, 'utf8');
 
-try {
-  await sendMail(
-    email,
-    'SynBioCon 2026 Registration Successful',
-    html
-  );
-} catch (err) {
-  console.error('Email failed:', err.message);
-}
+// try {
+//   await sendMail(
+//     email,
+//     'SynBioCon 2026 Registration Successful',
+//     html
+//   );
+// } catch (err) {
+//   console.error('Email failed:', err.message);
+// }
 
 
   } catch (err) {
