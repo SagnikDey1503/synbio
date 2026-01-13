@@ -304,7 +304,7 @@ app.post('/signup', async (req, res) => {
     // ✅ Respond immediately (NO waiting for email)
     res.render('signiup_land', {
       error: null,
-      success: 'Registered successfully! Check your email for details.',
+      success: 'Registered successfully! Please join the whatsapp group for updates.',
       fullName: '',
       email: '',
       phoneNumber: '',
@@ -314,34 +314,34 @@ app.post('/signup', async (req, res) => {
     });
 
     // 📧 Send email in background (non-blocking)
-    setImmediate(async () => {
-      try {
-        await sendMail(
-          email,
-          'SynBioCon 2026 Registration Successful',
-          `
-            <h2>Hello ${fullName},</h2>
-            <p>✅ Your registration for <b>SynBioCon 2026</b> is confirmed.</p>
+    // setImmediate(async () => {
+    //   try {
+    //     await sendMail(
+    //       email,
+    //       'SynBioCon 2026 Registration Successful',
+    //       `
+    //         <h2>Hello ${fullName},</h2>
+    //         <p>✅ Your registration for <b>SynBioCon 2026</b> is confirmed.</p>
 
-            <ul>
-              <li><b>Institute:</b> ${institute}</li>
-              <li><b>Degree:</b> ${degree}</li>
-              <li><b>Phone:</b> ${phoneNumber}</li>
-            </ul>
+    //         <ul>
+    //           <li><b>Institute:</b> ${institute}</li>
+    //           <li><b>Degree:</b> ${degree}</li>
+    //           <li><b>Phone:</b> ${phoneNumber}</li>
+    //         </ul>
 
-            <p>
-              👉 <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">
-              Join WhatsApp Group</a>
-            </p>
+    //         <p>
+    //           👉 <a href="https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw">
+    //           Join WhatsApp Group</a>
+    //         </p>
 
-            <p>Regards,<br/><b>SynBioCon Team</b></p>
-          `,
-          path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
-        );
-      } catch (mailErr) {
-        console.error('Email failed:', mailErr.message);
-      }
-    });
+    //         <p>Regards,<br/><b>SynBioCon Team</b></p>
+    //       `,
+    //       path.join(__dirname, 'assets', 'SynBioCon_2026_Schedule.pdf')
+    //     );
+    //   } catch (mailErr) {
+    //     console.error('Email failed:', mailErr.message);
+    //   }
+    // });
 
   } catch (err) {
     console.error(err);
