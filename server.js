@@ -1,14 +1,23 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const fs = require('fs');
 const path = require('path');
+const sendMail = require('./utils/sendMail');
 const connectDB = require('./lib/db');
 const User = require('./models/User');
 const Query = require('./models/Query');
-require('dotenv').config();
 
 const app = express();
+const templatePath = path.join(__dirname, 'templates/registrationEmail.html');
 
+const DRIVE_LINK =
+  'https://drive.google.com/file/d/1P-BhX7OMTeTkTJ7fMZJiJMk-E8E_UzT5/view?usp=sharing';
+
+const WHATSAPP_LINK =
+  'https://chat.whatsapp.com/IuiKpXX7IkwGE8Aq2RATHw';
 /* =====================
    Middleware
 ===================== */
@@ -290,7 +299,28 @@ app.post('/signup', async (req, res) => {
       expectations: ''
     });
 
-   
+   setImmediate(async () => {
+  try {
+    let html = fs.readFileSync(templatePath, 'utf8');
+
+    html = html
+      .replace('{{FULL_NAME}}', fullName)
+      .replace('{{INSTITUTE}}', institute)
+      .replace('{{DEGREE}}', degree)
+      .replace('{{PHONE}}', phoneNumber)
+      .replace('{{DRIVE_LINK}}', DRIVE_LINK)
+      .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
+
+    await sendMail(
+      email,
+      'SynBioCon 2026 Registration Successful',
+      html
+    );
+
+  } catch (err) {
+    console.error('Email failed:', err.message);
+  }
+});
 
   } catch (err) {
     console.error(err);
@@ -321,7 +351,7 @@ app.post('/query', async (req, res) => {
   }
 });
 //mailer test route
-// const sendMail = require('./utils/sendMail');
+
 
 // app.get('/test-mail', async (req, res) => {
 //   try {
