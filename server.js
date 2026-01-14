@@ -286,6 +286,7 @@ app.post('/signup', async (req, res) => {
       degree,
       expectations
     }).save();
+     console.log('Sending email now...');
 
     // ✅ Respond immediately (NO waiting for email)
     res.render('signiup_land', {
@@ -298,7 +299,7 @@ app.post('/signup', async (req, res) => {
       degree: '',
       expectations: ''
     });
-
+  console.log('Sent success message...');
 //    setImmediate(async () => {
 //   try {
 //     let html = fs.readFileSync(templatePath, 'utf8');
