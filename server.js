@@ -311,7 +311,16 @@ app.post('/signup', async (req, res) => {
 //     console.error('Email failed:', err.message);
 //   }
 // });
- const html = fs.readFileSync(templatePath, 'utf8');
+ let html = fs.readFileSync(templatePath, 'utf8');
+
+html = html
+  .replace('{{FULL_NAME}}', fullName)
+  .replace('{{INSTITUTE}}', institute)
+  .replace('{{DEGREE}}', degree)
+  .replace('{{PHONE}}', phoneNumber)
+  .replace('{{DRIVE_LINK}}', DRIVE_LINK)
+  .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
+
 
 try {
   await sendMail(
