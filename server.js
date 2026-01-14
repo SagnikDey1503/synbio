@@ -311,7 +311,7 @@ app.post('/signup', async (req, res) => {
 //     console.error('Email failed:', err.message);
 //   }
 // });
-// const html = fs.readFileSync(templatePath, 'utf8');
+ const html = fs.readFileSync(templatePath, 'utf8');
 
 try {
   await sendMail(
