@@ -3,9 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-// const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
-// const sendMail = require('./utils/sendMail');
+const sendMail = require('./utils/sendMail');
 const connectDB = require('./lib/db');
 const User = require('./models/User');
 const Query = require('./models/Query');
@@ -59,8 +59,6 @@ app.get('/signup', (req, res) => {
 });
 
 
-// Signup submit
-// app.post('/signup', async (req, res) => {
 //   const {
 //     email,
 //     fullName,
@@ -289,16 +287,7 @@ app.post('/signup', async (req, res) => {
      console.log('Sending email now...');
 
     // ✅ Respond immediately (NO waiting for email)
-    res.render('signiup_land', {
-      error: null,
-      success: 'Registered successfully! Please join the whatsapp group for updates.',
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      institute: '',
-      degree: '',
-      expectations: ''
-    });
+    
   console.log('Sent success message...');
 //    setImmediate(async () => {
 //   try {
@@ -324,16 +313,26 @@ app.post('/signup', async (req, res) => {
 // });
 // const html = fs.readFileSync(templatePath, 'utf8');
 
-// try {
-//   await sendMail(
-//     email,
-//     'SynBioCon 2026 Registration Successful',
-//     html
-//   );
-// } catch (err) {
-//   console.error('Email failed:', err.message);
-// }
-
+try {
+  await sendMail(
+    email,
+    'SynBioCon 2026 Registration Successful',
+    html
+  );
+} catch (err) {
+  console.error('Email failed:', err.message);
+}
+console.log('Email send initiated hello...');
+res.render('signiup_land', {
+      error: null,
+      success: 'Registered successfully! Please join the whatsapp group for updates.',
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      institute: '',
+      degree: '',
+      expectations: ''
+    });
 
   } catch (err) {
     console.error(err);
