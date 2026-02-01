@@ -1571,6 +1571,6 @@ padding:10px;
   border-radius: 50%;  /* makes it circular */
   object-fit: cover;   /* prevents stretching */
 object-position: center top;
-   border: 1px solid rgba(255, 255, 255, 0.633);
+   border: 0.9px solid rgba(255, 255, 255, 0.633);
 }
 
