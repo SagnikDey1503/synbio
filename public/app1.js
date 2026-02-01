@@ -9,14 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initScrollAnimations();
 });
-window.addEventListener('load', function () {
-    const loader = document.getElementById('preloader');
-    loader.classList.add('hidden');
-
-    setTimeout(() => {
-        loader.remove();
-    }, 600);
-});
 
 // Navigation functionality
 function initNavigation() {
