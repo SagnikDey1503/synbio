@@ -1562,7 +1562,6 @@ padding:10px;
   height: 100px;
   border-radius: 50%;  /* makes it circular */
   object-fit: cover;   /* prevents stretching */
-   border: 1px solid rgba(255, 255, 255, 0.633);
 }
 
 .team-avatar1 img {
@@ -1571,6 +1570,6 @@ padding:10px;
   border-radius: 50%;  /* makes it circular */
   object-fit: cover;   /* prevents stretching */
 object-position: center top;
-   border: 0.9px solid rgba(255, 255, 255, 0.633);
+
 }
 
