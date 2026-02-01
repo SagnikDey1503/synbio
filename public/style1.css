@@ -295,3 +295,14 @@ textarea {
   }
 }
 
+.input-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  color: #e2e8f0;
+}
+select option {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
