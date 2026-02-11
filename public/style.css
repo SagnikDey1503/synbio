@@ -1572,4 +1572,8 @@ padding:10px;
 object-position: center top;
 
 }
+.space{
+  height: 40px;
+  width: 100%;
+}
 
