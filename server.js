@@ -298,7 +298,7 @@ app.post('/signup', async (req, res) => {
 //       .replace('{{INSTITUTE}}', institute)
 //       .replace('{{DEGREE}}', degree)
 //       .replace('{{PHONE}}', phoneNumber)
-//       .replace('{{DRIVE_LINK}}', DRIVE_LINK)
+//       .replace('{{}}', DRIVE_LINK)
 //       .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
 
 //     await sendMail(
@@ -318,7 +318,7 @@ html = html
   .replace('{{INSTITUTE}}', institute)
   .replace('{{DEGREE}}', degree)
   .replace('{{PHONE}}', phoneNumber)
-  .replace('{{DRIVE_LINK}}', DRIVE_LINK)
+  // .replace('{{DRIVE_LINK}}', DRIVE_LINK)
   .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
 
 
