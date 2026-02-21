@@ -1059,6 +1059,12 @@ padding:10px;
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
 }
+.team-description1 {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-top: -13px;
+}
+
 
 /* Sponsors Section */
 .sponsors {
