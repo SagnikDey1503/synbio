@@ -151,7 +151,7 @@
     <div class="nav-menu" id="nav-menu" >
       <a href="#home" class="nav-link">Home</a>
       <a href="#about" class="nav-link">About</a>
-      <!-- <a href="#schedule" class="nav-link">Schedule</a> -->
+      <a href="#schedule" class="nav-link">Schedule</a>
        <a href="#speakers" class="nav-link">Speakers</a>
       <!-- <a href="#igem" class="nav-link">iGEM</a>  -->
       <a href="/signup" class="nav-link">Register</a>
@@ -251,112 +251,9 @@
           <p>Presentations by finalist and winning iGEM teams, highlighting impactful synthetic biology projects, design approaches, and translational potential.</p>
         </div>
         </div>  </div>  </div>  </section>
-    <!-- Sample Questions Section -->
-    <!-- <section id="questions" class="questions">
-        <div class="container">
-            <h2 class="section-title">Sample Questions</h2>
-            <div class="questions-tabs">
-                <button class="tab-btn active" onclick="showQuestions('physics')">Physics</button>
-                <button class="tab-btn" onclick="showQuestions('math')">Mathematics</button>
-                <button class="tab-btn" onclick="showQuestions('aptitude')">Aptitude</button>
-            </div>
-            
-            <div class="questions-content" id="physics-questions">
-                <div class="question-card">
-        <div class="question-number">Sherlock Holmes</div>
-        <div class="question-text">
-            In the Sherlock Holmes story <em>“The Adventure of the Dying Detective”</em>, we come across an ivory box containing a sharp spring compressed by the lid of the box. On opening, the spring — uniformly overloaded with deadly microbes — elongates and pricks the hand of Victor Savage, who dies after 4 days.
-            <br><br>
-            Let the box be cubical with edge length <strong>a = 10 cm</strong>. The natural (unstretched) length of the spring is <strong>ℓ = 10.2 cm</strong>. Consider the sharp end of the spring to be conical, with a <strong>semi-vertical angle α = 15°</strong>.
-            <br><br>
-            Suppose the microbes infect Red Blood Corpuscles (RBCs), and the infected RBCs lose their oxygen-carrying capacity. The number of infected RBCs at time <em>t</em> follows:
-            <br>
-            <strong>N(t) = N<sub>0</sub> e<sup>λt</sup></strong>, 
-            <br>
-            where <strong>λ = 1.2 × 10<sup>−5</sup> s<sup>−1</sup></strong>, and <strong>N<sub>0</sub></strong> is the initial number of microbes that enter the bloodstream.
-            <br><br>
-            A person dies when the number of infected RBCs reaches <strong>60%</strong> of the original RBC count in their body.
-            <br><br>
-            Assume:
-            <ul>
-                <li>Total blood volume of Victor: <strong>V = 5 L</strong></li>
-                <li>RBC concentration: <strong>β = 5 × 10<sup>6</sup> per mL</strong></li>
-                <li>Victor died exactly after <strong>4 days</strong></li>
-                <li>Surface density of microbes on the conical tip = <strong>σ × 10<sup>12</sup>/m²</strong></li>
-                <li>Neglect any resistive force to the spring’s motion</li>
-                <li>Assume all microbes that pierce the skin reach the bloodstream</li>
-            </ul>
-            <strong>Find the value of σ.</strong>
-        </div>
-    </div>
-    <div class="question-card">
-    <div class="question-number">Keep chasing your partner!</div>
-    <div class="question-text">
-        Three people <strong>P<sub>1</sub></strong>, <strong>P<sub>2</sub></strong>, and <strong>P<sub>3</sub></strong> are standing at the vertices A(0, 0), B(0, 3), and C(4, 0) of a right triangle ABC, respectively.
-        <br><br>
-        At time <strong>t = 0</strong>, they start moving such that:
-        <ul>
-            <li><strong>P<sub>1</sub></strong>'s velocity vector is always aimed at <strong>P<sub>3</sub></strong></li>
-            <li><strong>P<sub>3</sub></strong>'s velocity vector is always aimed at <strong>P<sub>2</sub></strong></li>
-            <li><strong>P<sub>2</sub></strong>'s velocity vector is always aimed at <strong>P<sub>1</sub></strong></li>
-        </ul>
-        Their speeds are such that they meet each other simultaneously, and the triangle formed by them retains its shape throughout the motion.
-        <br><br>
-        Let <strong>Q(h, k)</strong> be the point where they all meet.
-        <br><br>
-        If \( h + k = \frac{p}{q} \), where \( \gcd(p, q) = 1 \), and \( p, q \in \mathbb{N} \), <strong>find the value of \( p + q \)</strong>.
-    </div>
-</div>
-
-    </div>
-    
-
-            <div class="questions-content hidden" id="math-questions">
-                <div class="question-card">
-                    <div class="question-number">Chess Check</div>
-                    <div class="question-text">Let’s assume a standard 8 × 8 chess board where a white knight is at F3 square. Can it give the black
-king at E8 square a check after 20 moves if the king is fixed at its position? (A move is only considered
-when the knight moves)
-</div>
-                    
-                </div>
-                <div class="question-card">
-                    <div class="question-number">Weird polynomial is a perfect square</div>
-                    <div class="question-text"> <p>
-      Find the sum of all natural numbers \( n \) such that
-    </p>
-    <p style="text-align: center;">
-      \( n^4 + 2n^3 + 2n^2 - 11n + 30 \)
-    </p>
-    <p>
-      is a perfect square.
-    </p>
-</div>
-</div>
-            </div>
-
-            <div class="questions-content hidden" id="aptitude-questions">
-                <div class="question-card">
-                    <div class="question-number">Who's the culprit?</div>
-                    <div class="question-text">Quizzicles was found dead in the central park of London. There are six suspects “Alice”, “Costa”,
-“Pedro”, “James”, “Terry” and “David”. Quizzicles has written the murderer’s name in cipher on the
-floor as “dqvxf”. Police were unable to solve the mystery so they called Sherlock. After a minute, Sherlock
-was able to decipher the cipher and ask the police to capture the murderer. Who is THE MURDERER?
-</div>
-                    
-                </div>
-                <div class="question-card">
-                    <div class="question-number">Inverses as more inverses</div>
-                    <div class="question-text">Can \(\frac{1}{69420} \) be written as a sum of more than 42069 fractions with numerator one and denominator a
-positive integer such that all the denominators are not prime?
-</div>
-</div>
-            </div>
-        </div>
-    </section> -->
-
+  
     <!-- 2nd Edition Details -->
-   <!-- <section id="schedule" class="schedule">
+    <section id="schedule" class="schedule">
   <div class="container">
     <h2 class="section-title">Conference Schedule</h2>
 
@@ -365,35 +262,54 @@ positive integer such that all the denominators are not prime?
   <div class="edition-card">
     <div class="card__body">
       <h3>Day 1- 07/03/2026</h3>
-      <div class="detail-item"><strong>9:00 AM</strong> – Speaker 1</div>
-      <div class="detail-item"><strong>10:00 AM</strong> – Speaker 2</div>
-      <div class="detail-item"><strong>11:00 AM</strong> – Break</div>
-      <div class="detail-item"><strong>11:30 AM</strong> – Bioinformatics Workshop – I</div>
-      <div class="detail-item"><strong>1:00 PM</strong> – Lunch Break</div>
-      <div class="detail-item"><strong>2:30 PM</strong> – Bioinformatics Workshop – II</div>
-      <div class="detail-item"><strong>4:00 PM</strong> – Project Showcase</div>
-      <div class="detail-item"><strong>6:00 PM</strong> – Closing Day 1</div>
+      <div class="detail-item"><strong>9:00 AM - 10:00 AM</strong> – Prof. Yvonne Y. Chen (UCLA)</div>
+      <div class="detail-item"><strong>10:30 AM - 11:30 AM</strong> – iGEM Team project showcase</div>
+      <div class="detail-item"><strong>12:00 PM - 1:00 PM</strong> – Dr. Rajesh Kante (Serum Institute of India)</div>
+      <div class="detail-item"><strong>1:00 PM - 2:30 PM</strong> – Lunch Break</div>
+      <div class="detail-item"><strong>3:00 PM - 4:00 PM</strong> – Dr.Syed Shams Yazdani (ICGEB)</div>
+      <div class="detail-item"><strong>4:00 PM - 6:30 PM</strong> – Bioinformatics workshop </div>
     </div>
-  </div>
+  </div>  
 
-  <div class="edition-card">
-    <div class="card__body">
-      <h3>Day 2- 08/03/2026</h3>
-      <div class="detail-item"><strong>9:00 AM</strong> – Speaker 3</div>
-      <div class="detail-item"><strong>10:00 AM</strong> – Speaker 4</div>
-      <div class="detail-item"><strong>11:00 AM</strong> – Break</div>
-      <div class="detail-item"><strong>11:30 AM</strong> – Bioinformatics Workshop – III</div>
-      <div class="detail-item"><strong>1:00 PM</strong> – Lunch Break</div>
-      <div class="detail-item"><strong>2:30 PM</strong> – Bioinformatics Workshop – IV</div>
-      <div class="detail-item"><strong>4:00 PM</strong> – Project Showcase</div>
-      <div class="detail-item"><strong>6:00 PM</strong> – Closing Ceremony</div>
+<div class="edition-card">
+  <div class="card__body">
+    <h3>Day 2- 08/03/2026</h3>
+
+    <div class="detail-item">
+      <strong>9:30 AM - 10:30 AM</strong> – Mr. Nitin Vaish (Ginkgo Bioworks) 
     </div>
+
+    <div class="detail-item">
+      <strong>11:00 AM - 1:00 PM</strong> – Bioinformatics Workshop 
+    </div>
+
+    <div class="detail-item">
+      <strong>1:00 PM - 2:30 PM</strong> – Lunch Break
+    </div>
+
+    <div class="detail-item">
+      <strong>2:30 PM - 3:30 PM</strong> – iGEM IIT Bombay project showcase
+    </div>
+
+    <div class="detail-item">
+      <strong>4:00 PM - 5:00 PM</strong> – iGEM Team project showcase
+    </div>
+
+    <div class="detail-item">
+      <strong>5:30 PM - 6:30 PM</strong> – Prof. Barbara Di Ventura (University of Freiburg)
+    </div>
+
+    <div class="detail-item">
+      <strong>6:30 PM onwards</strong> – Closing Ceremony 
+    </div>
+
   </div>
+</div>
 
 </div>
 
   </div>
-</section> -->
+</section> 
 
 
     <!-- Team Section -->
