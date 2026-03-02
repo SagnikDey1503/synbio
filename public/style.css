@@ -1590,12 +1590,15 @@ object-position: center top;
 }
 
 .marquee-container {
+  position: absolute;
+  z-index: 1;
   width: 100%;
-  background: #040e1aad;
+  background: #040e1a51;
   overflow: hidden;
   white-space: nowrap;
   padding: 10px 0;
 }
+
 
 .marquee-track {
   display: flex;
@@ -1606,8 +1609,8 @@ object-position: center top;
 .marquee-content {
   padding-left: 150px;
   padding-right: 50px; /* spacing between duplicates */
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 400;
   color: white;
 }
 
