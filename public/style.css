@@ -1590,31 +1590,34 @@ object-position: center top;
 }
 
 .marquee-container {
-  position: relative; 
   width: 100%;
   background: #040e1ae4;
-  color: white;
   overflow: hidden;
   white-space: nowrap;
   padding: 10px 0;
 }
 
 .marquee-track {
-  display: inline-flex;
-  gap: 80px;
-  animation: scrollLoop 18s linear infinite;
+  display: flex;
+  width: max-content;
+  animation: scroll 15s linear infinite;
 }
 
-.marquee-track span {
+.marquee-content {
+  padding-right: 80px;
   font-size: 18px;
   font-weight: 500;
+  color: white;
 }
 
-@keyframes scrollLoop {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
-
 .schedule-note {
   text-align: center;
   padding: 15px;
