@@ -135,6 +135,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  
 }
 
 
@@ -590,6 +591,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-background);
   overflow-x: hidden;
+  padding-top: 72px;
 }
 
 /* Navigation */
@@ -1587,3 +1589,37 @@ object-position: center top;
   width: 100%;
 }
 
+.marquee-container {
+  position: relative; 
+  width: 100%;
+  background: #040e1ae4;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 80px;
+  animation: scrollLoop 18s linear infinite;
+}
+
+.marquee-track span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@keyframes scrollLoop {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.schedule-note {
+  text-align: center;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  background: #040e1ae4;
+  color: #f7f7f8;
+}
