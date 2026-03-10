@@ -44,8 +44,6 @@ app.get('/', (req, res) => {
 });
 
 
-// Signup page
-
 
 
 //   const {
@@ -250,47 +248,6 @@ app.get('/', (req, res) => {
 //     console.error('Email failed:', err.message);
 //   }
 // });
- let html = fs.readFileSync(templatePath, 'utf8');
-
-html = html
-  .replace('{{FULL_NAME}}', fullName)
-  .replace('{{INSTITUTE}}', institute)
-  .replace('{{DEGREE}}', degree)
-  .replace('{{PHONE}}', phoneNumber)
-  // .replace('{{DRIVE_LINK}}', DRIVE_LINK)
-  .replace('{{WHATSAPP_LINK}}', WHATSAPP_LINK);
-
-
-try {
-  await sendMail(
-    email,
-    'SynBioCon 2026 Registration Successful',
-    html
-  );
-} catch (err) {
-  console.error('Email failed:', err.message);
-}
-console.log('Email send initiated hello...');
-res.render('signiup_land', {
-      error: null,
-      success: 'Registered successfully! Please join the whatsapp group for updates.',
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      institute: '',
-      degree: '',
-      expectations: ''
-    });
-
-  } catch (err) {
-    console.error(err);
-    res.render('signiup_land', {
-      error: 'Something went wrong. Please try again.',
-      success: null,
-      ...req.body
-    });
-  }
-});
 
 // Query form
 app.post('/query', async (req, res) => {
@@ -310,23 +267,7 @@ app.post('/query', async (req, res) => {
     res.json({ success: false, message: 'Submission failed.' });
   }
 });
-//mailer test route
 
-
-// app.get('/test-mail', async (req, res) => {
-//   try {
-//     await sendMail(
-//       process.env.GMAIL_USER,
-//       'FINALLY WORKS 🎉',
-//       '<h2>This email was sent using Gmail API (no SMTP)</h2>'
-//     );
-
-//     res.send('Email sent ✅ Check inbox');
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send(err.message);
-//   }
-// });
 
 
 
