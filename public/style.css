@@ -732,7 +732,7 @@ body {
   display: flex;
   gap: var(--space-16);
   justify-content: center;
-  margin-bottom: var(--space-32);
+  margin-bottom: var(--space-16);
   animation: fadeInUp 1s ease-out 0.9s both;
   flex-wrap: wrap;
   margin-top: 30px;
@@ -1629,4 +1629,11 @@ object-position: center top;
   font-weight: 500;
   background: #040e1ae4;
   color: #f7f7f8;
+}
+
+.thank_box {
+  margin-bottom: var(--space-16);
+  padding-top: 10px;
+  font-size: var(--font-size-2xl);
+  animation: fadeInUp 1s ease-out 1.2s both;
 }
