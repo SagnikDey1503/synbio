@@ -45,18 +45,7 @@ app.get('/', (req, res) => {
 
 
 // Signup page
-app.get('/signup', (req, res) => {
-  res.render('signiup_land', {
-    fullName: '',
-    email: '',
-    phoneNumber: '',
-    institute: '',
-    degree: '',
-    expectations: '',
-    error: null,
-    success: null
-  });
-});
+
 
 
 //   const {
@@ -238,57 +227,7 @@ app.get('/signup', (req, res) => {
 //   }
 // });
 
-app.post('/signup', async (req, res) => {
-  await connectDB();
-  const {
-    email,
-    fullName,
-    phoneNumber,
-    institute,
-    degree,
-    expectations
-  } = req.body;
 
-  try {
-    // 🔒 Required field check
-    if (!email || !fullName || !phoneNumber || !institute || !degree) {
-      return res.render('signiup_land', {
-        error: 'Please fill all required fields.',
-        success: null,
-        ...req.body
-      });
-    }
-
-    // 🔁 Duplicate check
-    const existingUser = await User.findOne({
-      $or: [{ email }, { phoneNumber }]
-    });
-
-    if (existingUser) {
-      return res.render('signiup_land', {
-        error:
-          existingUser.email === email
-            ? 'Email already registered.'
-            : 'Phone number already registered.',
-        success: null,
-        ...req.body
-      });
-    }
-
-    // 💾 Save user
-    await new User({
-      email,
-      fullName,
-      phoneNumber,
-      institute,
-      degree,
-      expectations
-    }).save();
-     console.log('Sending email now...');
-
-    // ✅ Respond immediately (NO waiting for email)
-    
-  console.log('Sent success message...');
 //    setImmediate(async () => {
 //   try {
 //     let html = fs.readFileSync(templatePath, 'utf8');
